@@ -1,0 +1,33 @@
+{
+  "annotations": {
+    "changelogDate": "20260326164232"
+  },
+  "applications": ["transportSystem"],
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    },
+    {
+      "fieldName": "latitude",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "longitude",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "name": "Stop",
+  "relationships": [
+    {
+      "otherEntityName": "routeStop",
+      "otherEntityRelationshipName": "stop",
+      "relationshipName": "routeStop",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": "no"
+}

@@ -1,0 +1,68 @@
+{
+  "annotations": {
+    "changelogDate": "20260326164432"
+  },
+  "applications": ["transportSystem"],
+  "fields": [
+    {
+      "fieldName": "departureTime",
+      "fieldType": "LocalTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "arrivalTime",
+      "fieldType": "LocalTime",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "tripDate",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "tripStatus",
+      "fieldType": "TripStatus",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "SCHEDULED,ONGOING,COMPLETED,CANCELLED"
+    }
+  ],
+  "name": "Trip",
+  "relationships": [
+    {
+      "otherEntityName": "waybill",
+      "otherEntityRelationshipName": "trip",
+      "relationshipName": "waybill",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "event",
+      "otherEntityRelationshipName": "trip",
+      "relationshipName": "event",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "vehicle",
+      "otherEntityRelationshipName": "trip",
+      "relationshipName": "vehicle",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "driver",
+      "otherEntityRelationshipName": "trip",
+      "relationshipName": "driver",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "route",
+      "otherEntityRelationshipName": "trip",
+      "relationshipName": "route",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}

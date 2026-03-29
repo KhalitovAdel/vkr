@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/transport_system
+    username: transport_user
+    password: transport_password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: false
+
+logging:
+  level:
+    root: INFO
+    com.transport.system.service.TripService: DEBUG
+    com.transport.system.service.VehicleService: DEBUG

@@ -1,0 +1,49 @@
+{
+  "annotations": {
+    "changelogDate": "20260326164532"
+  },
+  "applications": ["transportSystem"],
+  "fields": [
+    {
+      "fieldName": "documentNumber",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique", "maxlength"],
+      "fieldValidateRulesMaxlength": "20"
+    },
+    {
+      "fieldName": "actualDeparture",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "actualReturn",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "mileageStart",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "mileageEnd",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "fuelConsumptionPlan",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "fuelConsumptionFact",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "name": "Waybill",
+  "relationships": [
+    {
+      "otherEntityName": "trip",
+      "otherEntityRelationshipName": "waybill",
+      "relationshipName": "trip",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}

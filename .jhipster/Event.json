@@ -1,0 +1,41 @@
+{
+  "annotations": {
+    "changelogDate": "20260326164632"
+  },
+  "applications": ["transportSystem"],
+  "fields": [
+    {
+      "fieldName": "eventType",
+      "fieldType": "EventType",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "BREAKDOWN,ACCIDENT,DELAY"
+    },
+    {
+      "fieldName": "eventTime",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "TextBlob"
+    }
+  ],
+  "name": "Event",
+  "relationships": [
+    {
+      "otherEntityName": "trip",
+      "otherEntityRelationshipName": "event",
+      "relationshipName": "trip",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "vehicle",
+      "otherEntityRelationshipName": "event",
+      "relationshipName": "vehicle",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}

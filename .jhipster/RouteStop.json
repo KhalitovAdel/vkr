@@ -1,0 +1,35 @@
+{
+  "annotations": {
+    "changelogDate": "20260326164332"
+  },
+  "applications": ["transportSystem"],
+  "fields": [
+    {
+      "fieldName": "stopOrder",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "distanceFromPrev",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "name": "RouteStop",
+  "relationships": [
+    {
+      "otherEntityName": "route",
+      "otherEntityRelationshipName": "routeStop",
+      "relationshipName": "route",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "stop",
+      "otherEntityRelationshipName": "routeStop",
+      "relationshipName": "stop",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no"
+}

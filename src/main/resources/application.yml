@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: transportSystem
+  profiles:
+    active: dev
+  liquibase:
+    change-log: classpath:config/liquibase/master.xml

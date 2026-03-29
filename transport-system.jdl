@@ -1,0 +1,96 @@
+application {
+  config {
+    baseName transportSystem
+    packageName com.transport.system
+    applicationType monolith
+    authenticationType jwt
+    databaseType sql
+    devDatabaseType postgresql
+    prodDatabaseType postgresql
+    buildTool maven
+    clientFramework react
+    clientTheme lux
+    enableSwaggerCodegen false
+    enableTranslation false
+    testFrameworks [cypress]
+    serverPort 8080
+    nativeLanguage ru
+  }
+  entities Vehicle, Driver, Route, Stop, RouteStop, Trip, Waybill, Event
+}
+
+enum VehicleType { BUS, TROLLEY, TRAM }
+enum CapacityType { SMALL, MEDIUM, LARGE }
+enum TechnicalStatus { OPERATIONAL, REPAIR, SCRAPPED }
+enum RouteType { CITY, SUBURB }
+enum TripStatus { SCHEDULED, ONGOING, COMPLETED, CANCELLED }
+enum EventType { BREAKDOWN, ACCIDENT, DELAY }
+
+entity Vehicle {
+  stateNumber String required unique maxlength(10)
+  model String required maxlength(50)
+  vehicleType VehicleType required
+  capacity CapacityType required
+  passengerCapacity Integer required
+  year Integer required
+  technicalStatus TechnicalStatus required
+  mileage BigDecimal required
+}
+
+entity Driver {
+  employeeNumber String required unique maxlength(20)
+  fullName String required maxlength(100)
+  licenseCategory String required maxlength(10)
+  experience Integer required
+  hireDate LocalDate required
+}
+
+entity Route {
+  routeNumber String required unique maxlength(10)
+  routeName String required maxlength(100)
+  length BigDecimal required
+  routeType RouteType required
+}
+
+entity Stop {
+  name String required maxlength(100)
+  latitude BigDecimal
+  longitude BigDecimal
+}
+
+entity RouteStop {
+  stopOrder Integer required
+  distanceFromPrev BigDecimal
+}
+
+entity Trip {
+  departureTime LocalTime required
+  arrivalTime LocalTime required
+  tripDate LocalDate required
+  tripStatus TripStatus required
+}
+
+entity Waybill {
+  documentNumber String required unique maxlength(20)
+  actualDeparture Instant
+  actualReturn Instant
+  mileageStart BigDecimal
+  mileageEnd BigDecimal
+  fuelConsumptionPlan BigDecimal
+  fuelConsumptionFact BigDecimal
+}
+
+entity Event {
+  eventType EventType required
+  eventTime Instant required
+  description TextBlob
+}
+
+relationship OneToMany { Vehicle{trip} to Trip{vehicle} }
+relationship OneToMany { Driver{trip} to Trip{driver} }
+relationship OneToMany { Route{trip} to Trip{route} }
+relationship OneToMany { Route{routeStop} to RouteStop{route} }
+relationship OneToMany { Stop{routeStop} to RouteStop{stop} }
+relationship OneToOne { Trip{waybill} to Waybill{trip} }
+relationship OneToMany { Trip{event} to Event{trip} }
+relationship OneToMany { Vehicle{event} to Event{vehicle} }

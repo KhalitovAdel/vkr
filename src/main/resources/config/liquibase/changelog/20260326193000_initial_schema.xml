@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="20260326193000-1" author="cursor">
+        <createTable tableName="vehicle">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="state_number" type="varchar(10)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="model" type="varchar(50)"/>
+            <column name="vehicle_type" type="varchar(20)"/>
+            <column name="capacity" type="varchar(20)"/>
+            <column name="passenger_capacity" type="int"/>
+            <column name="year" type="int"/>
+            <column name="technical_status" type="varchar(20)"/>
+            <column name="mileage" type="numeric(21,2)"/>
+        </createTable>
+
+        <createTable tableName="driver">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="employee_number" type="varchar(20)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="full_name" type="varchar(100)"/>
+            <column name="license_category" type="varchar(10)"/>
+            <column name="experience" type="int"/>
+            <column name="hire_date" type="date"/>
+        </createTable>
+
+        <createTable tableName="route">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="route_number" type="varchar(10)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="route_name" type="varchar(100)"/>
+            <column name="length" type="numeric(21,2)"/>
+            <column name="route_type" type="varchar(20)"/>
+        </createTable>
+
+        <createTable tableName="stop">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)"/>
+            <column name="latitude" type="numeric(21,8)"/>
+            <column name="longitude" type="numeric(21,8)"/>
+        </createTable>
+
+        <createTable tableName="route_stop">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="stop_order" type="int"/>
+            <column name="distance_from_prev" type="numeric(21,2)"/>
+            <column name="route_id" type="bigint"/>
+            <column name="stop_id" type="bigint"/>
+        </createTable>
+
+        <createTable tableName="trip">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="departure_time" type="time"/>
+            <column name="arrival_time" type="time"/>
+            <column name="trip_date" type="date"/>
+            <column name="trip_status" type="varchar(20)"/>
+            <column name="vehicle_id" type="bigint"/>
+            <column name="driver_id" type="bigint"/>
+            <column name="route_id" type="bigint"/>
+        </createTable>
+
+        <createTable tableName="waybill">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="document_number" type="varchar(20)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="actual_departure" type="timestamp"/>
+            <column name="actual_return" type="timestamp"/>
+            <column name="mileage_start" type="numeric(21,2)"/>
+            <column name="mileage_end" type="numeric(21,2)"/>
+            <column name="fuel_consumption_plan" type="numeric(21,2)"/>
+            <column name="fuel_consumption_fact" type="numeric(21,2)"/>
+            <column name="trip_id" type="bigint">
+                <constraints unique="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="event">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="event_type" type="varchar(20)"/>
+            <column name="event_time" type="timestamp"/>
+            <column name="description" type="text"/>
+            <column name="trip_id" type="bigint"/>
+            <column name="vehicle_id" type="bigint"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="route_stop" baseColumnNames="route_id"
+                                 referencedTableName="route" referencedColumnNames="id"
+                                 constraintName="fk_route_stop_route"/>
+        <addForeignKeyConstraint baseTableName="route_stop" baseColumnNames="stop_id"
+                                 referencedTableName="stop" referencedColumnNames="id"
+                                 constraintName="fk_route_stop_stop"/>
+        <addForeignKeyConstraint baseTableName="trip" baseColumnNames="vehicle_id"
+                                 referencedTableName="vehicle" referencedColumnNames="id"
+                                 constraintName="fk_trip_vehicle"/>
+        <addForeignKeyConstraint baseTableName="trip" baseColumnNames="driver_id"
+                                 referencedTableName="driver" referencedColumnNames="id"
+                                 constraintName="fk_trip_driver"/>
+        <addForeignKeyConstraint baseTableName="trip" baseColumnNames="route_id"
+                                 referencedTableName="route" referencedColumnNames="id"
+                                 constraintName="fk_trip_route"/>
+        <addForeignKeyConstraint baseTableName="waybill" baseColumnNames="trip_id"
+                                 referencedTableName="trip" referencedColumnNames="id"
+                                 constraintName="fk_waybill_trip"/>
+        <addForeignKeyConstraint baseTableName="event" baseColumnNames="trip_id"
+                                 referencedTableName="trip" referencedColumnNames="id"
+                                 constraintName="fk_event_trip"/>
+        <addForeignKeyConstraint baseTableName="event" baseColumnNames="vehicle_id"
+                                 referencedTableName="vehicle" referencedColumnNames="id"
+                                 constraintName="fk_event_vehicle"/>
+
+        <createIndex tableName="trip" indexName="idx_trips_date">
+            <column name="trip_date"/>
+        </createIndex>
+        <createIndex tableName="trip" indexName="idx_trips_vehicle_date">
+            <column name="vehicle_id"/>
+            <column name="trip_date"/>
+        </createIndex>
+        <createIndex tableName="event" indexName="idx_events_vehicle_time">
+            <column name="vehicle_id"/>
+            <column name="event_time"/>
+        </createIndex>
+        <createIndex tableName="route_stop" indexName="idx_route_stops_route_order">
+            <column name="route_id"/>
+            <column name="stop_order"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

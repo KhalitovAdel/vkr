@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="20260326201000-1" author="jhipster">
+        <createIndex indexName="idx_trips_date" tableName="trip">
+            <column name="trip_date"/>
+        </createIndex>
+
+        <createIndex indexName="idx_trips_status" tableName="trip">
+            <column name="trip_status"/>
+        </createIndex>
+
+        <createIndex indexName="idx_trips_vehicle_date" tableName="trip">
+            <column name="vehicle_id"/>
+            <column name="trip_date"/>
+        </createIndex>
+
+        <createIndex indexName="idx_trips_driver_date" tableName="trip">
+            <column name="driver_id"/>
+            <column name="trip_date"/>
+        </createIndex>
+
+        <createIndex indexName="idx_events_vehicle_time" tableName="event">
+            <column name="vehicle_id"/>
+            <column name="event_time"/>
+        </createIndex>
+
+        <createIndex indexName="idx_route_stops_route_order" tableName="route_stop">
+            <column name="route_id"/>
+            <column name="stop_order"/>
+        </createIndex>
+
+        <createIndex indexName="idx_waybills_trip" tableName="trip">
+            <column name="waybill_id"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
