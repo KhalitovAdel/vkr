@@ -55,6 +55,13 @@ export const waybillBody = (suffix: string) => ({
   documentNumber: `W${suffix}`.slice(0, 20),
 });
 
+/** Минимальное тело для POST /api/events (скриншоты списка и тесты). */
+export const eventBody = (suffix: string) => ({
+  eventType: 'DELAY',
+  eventTime: '2030-06-15T12:00:00.000Z',
+  description: `Демонстрационное событие ${suffix}`.slice(0, 500),
+});
+
 export const tripBody = (params: {
   tripDate: string;
   departureTime: string;

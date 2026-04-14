@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { tripStatusRu } from 'app/shared/util/enum-labels-ru';
+
 import { getEntity } from './trip.reducer';
 
 export const TripDetail = () => {
@@ -23,35 +25,35 @@ export const TripDetail = () => {
   return (
     <Row>
       <Col md="8">
-        <h2 data-cy="tripDetailsHeading">Trip</h2>
+        <h2 data-cy="tripDetailsHeading">Рейс</h2>
         <dl className="jh-entity-details">
           <dt>
-            <span id="id">ID</span>
+            <span id="id">№</span>
           </dt>
           <dd>{tripEntity.id}</dd>
           <dt>
-            <span id="departureTime">Departure Time</span>
+            <span id="departureTime">Время отправления</span>
           </dt>
           <dd>{tripEntity.departureTime}</dd>
           <dt>
-            <span id="arrivalTime">Arrival Time</span>
+            <span id="arrivalTime">Время прибытия</span>
           </dt>
           <dd>{tripEntity.arrivalTime}</dd>
           <dt>
-            <span id="tripDate">Trip Date</span>
+            <span id="tripDate">Дата рейса</span>
           </dt>
           <dd>{tripEntity.tripDate ? <TextFormat value={tripEntity.tripDate} type="date" format={APP_LOCAL_DATE_FORMAT} /> : null}</dd>
           <dt>
-            <span id="tripStatus">Trip Status</span>
+            <span id="tripStatus">Статус</span>
           </dt>
-          <dd>{tripEntity.tripStatus}</dd>
-          <dt>Waybill</dt>
+          <dd>{tripStatusRu(tripEntity.tripStatus)}</dd>
+          <dt>Путевой лист</dt>
           <dd>{tripEntity.waybill ? tripEntity.waybill.id : ''}</dd>
-          <dt>Vehicle</dt>
+          <dt>ТС</dt>
           <dd>{tripEntity.vehicle ? tripEntity.vehicle.id : ''}</dd>
-          <dt>Driver</dt>
+          <dt>Водитель</dt>
           <dd>{tripEntity.driver ? tripEntity.driver.id : ''}</dd>
-          <dt>Route</dt>
+          <dt>Маршрут</dt>
           <dd>{tripEntity.route ? tripEntity.route.id : ''}</dd>
         </dl>
         <Button as={Link as any} to="/trip" replace variant="info" data-cy="entityDetailsBackButton">

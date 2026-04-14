@@ -11,6 +11,7 @@ import { getEntities as getRoutes } from 'app/entities/route/route.reducer';
 import { getEntities as getVehicles } from 'app/entities/vehicle/vehicle.reducer';
 import { getEntities as getWaybills } from 'app/entities/waybill/waybill.reducer';
 import { TripStatus } from 'app/shared/model/enumerations/trip-status.model';
+import { tripStatusRu } from 'app/shared/util/enum-labels-ru';
 
 import { createEntity, getEntity, reset, updateEntity } from './trip.reducer';
 
@@ -93,19 +94,19 @@ export const TripUpdate = () => {
       <Row className="justify-content-center">
         <Col md="8">
           <h2 id="transportSystemApp.trip.home.createOrEditLabel" data-cy="TripCreateUpdateHeading">
-            Создать или отредактировать Trip
+            Создание или редактирование рейса
           </h2>
         </Col>
       </Row>
       <Row className="justify-content-center">
         <Col md="8">
           {loading ? (
-            <p>Loading...</p>
+            <p>Загрузка…</p>
           ) : (
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
-              {!isNew && <ValidatedField name="id" required readOnly id="trip-id" label="ID" validate={{ required: true }} />}
+              {!isNew && <ValidatedField name="id" required readOnly id="trip-id" label="№" validate={{ required: true }} />}
               <ValidatedField
-                label="Departure Time"
+                label="Время отправления"
                 id="trip-departureTime"
                 name="departureTime"
                 data-cy="departureTime"
@@ -116,7 +117,7 @@ export const TripUpdate = () => {
                 }}
               />
               <ValidatedField
-                label="Arrival Time"
+                label="Время прибытия"
                 id="trip-arrivalTime"
                 name="arrivalTime"
                 data-cy="arrivalTime"
@@ -127,7 +128,7 @@ export const TripUpdate = () => {
                 }}
               />
               <ValidatedField
-                label="Trip Date"
+                label="Дата рейса"
                 id="trip-tripDate"
                 name="tripDate"
                 data-cy="tripDate"
@@ -136,14 +137,14 @@ export const TripUpdate = () => {
                   required: { value: true, message: 'Это поле обязательно к заполнению.' },
                 }}
               />
-              <ValidatedField label="Trip Status" id="trip-tripStatus" name="tripStatus" data-cy="tripStatus" type="select">
+              <ValidatedField label="Статус рейса" id="trip-tripStatus" name="tripStatus" data-cy="tripStatus" type="select">
                 {tripStatusValues.map(tripStatus => (
                   <option value={tripStatus} key={tripStatus}>
-                    {tripStatus}
+                    {tripStatusRu(tripStatus)}
                   </option>
                 ))}
               </ValidatedField>
-              <ValidatedField id="trip-waybill" name="waybill" data-cy="waybill" label="Waybill" type="select">
+              <ValidatedField id="trip-waybill" name="waybill" data-cy="waybill" label="Путевой лист" type="select">
                 <option value="" key="0" />
                 {waybills
                   ? waybills.map(otherEntity => (
@@ -153,7 +154,7 @@ export const TripUpdate = () => {
                     ))
                   : null}
               </ValidatedField>
-              <ValidatedField id="trip-vehicle" name="vehicle" data-cy="vehicle" label="Vehicle" type="select">
+              <ValidatedField id="trip-vehicle" name="vehicle" data-cy="vehicle" label="Транспортное средство" type="select">
                 <option value="" key="0" />
                 {vehicles
                   ? vehicles.map(otherEntity => (
@@ -163,7 +164,7 @@ export const TripUpdate = () => {
                     ))
                   : null}
               </ValidatedField>
-              <ValidatedField id="trip-driver" name="driver" data-cy="driver" label="Driver" type="select">
+              <ValidatedField id="trip-driver" name="driver" data-cy="driver" label="Водитель" type="select">
                 <option value="" key="0" />
                 {drivers
                   ? drivers.map(otherEntity => (
@@ -173,7 +174,7 @@ export const TripUpdate = () => {
                     ))
                   : null}
               </ValidatedField>
-              <ValidatedField id="trip-route" name="route" data-cy="route" label="Route" type="select">
+              <ValidatedField id="trip-route" name="route" data-cy="route" label="Маршрут" type="select">
                 <option value="" key="0" />
                 {routes
                   ? routes.map(otherEntity => (

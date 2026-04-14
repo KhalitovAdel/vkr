@@ -21,23 +21,23 @@ export const RouteStopDetail = () => {
   return (
     <Row>
       <Col md="8">
-        <h2 data-cy="routeStopDetailsHeading">Route Stop</h2>
+        <h2 data-cy="routeStopDetailsHeading">Остановка на маршруте</h2>
         <dl className="jh-entity-details">
           <dt>
-            <span id="id">ID</span>
+            <span id="id">№</span>
           </dt>
           <dd>{routeStopEntity.id}</dd>
           <dt>
-            <span id="stopOrder">Stop Order</span>
+            <span id="stopOrder">Порядок</span>
           </dt>
           <dd>{routeStopEntity.stopOrder}</dd>
           <dt>
-            <span id="distanceFromPrev">Distance From Prev</span>
+            <span id="distanceFromPrev">Расстояние от пред., км</span>
           </dt>
           <dd>{routeStopEntity.distanceFromPrev}</dd>
-          <dt>Route</dt>
+          <dt>Маршрут</dt>
           <dd>{routeStopEntity.route ? routeStopEntity.route.id : ''}</dd>
-          <dt>Stop</dt>
+          <dt>Остановка</dt>
           <dd>{routeStopEntity.stop ? routeStopEntity.stop.id : ''}</dd>
         </dl>
         <Button as={Link as any} to="/route-stop" replace variant="info" data-cy="entityDetailsBackButton">

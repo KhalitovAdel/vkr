@@ -7,43 +7,43 @@ const EntitiesMenu = () => {
     <>
       {/* prettier-ignore */}
       <MenuItem icon="asterisk" to="/vehicle">
-        Vehicle
+        Транспортные средства
       </MenuItem>
       <MenuItem icon="asterisk" to="/driver">
-        Driver
+        Водители
       </MenuItem>
       <MenuItem icon="asterisk" to="/route">
-        Route
+        Маршруты
       </MenuItem>
       <MenuItem icon="asterisk" to="/stop">
-        Stop
+        Остановки
       </MenuItem>
       <MenuItem icon="asterisk" to="/route-stop">
-        Route Stop
+        Остановки на маршрутах
       </MenuItem>
       <MenuItem icon="asterisk" to="/trip">
-        Trip
+        Рейсы
       </MenuItem>
       <MenuItem icon="asterisk" to="/trip/suggestion">
-        Trip Suggestion
+        Подбор ТС
       </MenuItem>
       <MenuItem icon="asterisk" to="/trip/by-date">
-        Trips By Date
+        Рейсы по дате
       </MenuItem>
       <MenuItem icon="asterisk" to="/waybill">
-        Waybill
+        Путевые листы
       </MenuItem>
       <MenuItem icon="asterisk" to="/event">
-        Event
+        События
       </MenuItem>
       <MenuItem icon="asterisk" to="/vehicle/fleet-status">
-        Fleet Status
+        Статус парка
       </MenuItem>
       <MenuItem icon="asterisk" to="/vehicle/schedule">
-        Vehicle Schedule
+        Расписание ТС
       </MenuItem>
       <MenuItem icon="asterisk" to="/driver/schedule">
-        Driver Schedule
+        Расписание водителя
       </MenuItem>
       {/* jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here */}
     </>

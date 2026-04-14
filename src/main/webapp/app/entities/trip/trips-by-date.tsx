@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+import { tripStatusRu } from 'app/shared/util/enum-labels-ru';
+
 type TripRow = {
   id: number;
   departureTime: string;
@@ -27,7 +29,7 @@ const TripsByDate = () => {
       <ul data-cy="tripsByDateList">
         {items.map(item => (
           <li key={item.id} data-cy="tripsByDateRow">
-            #{item.id} {item.departureTime}-{item.arrivalTime} ({item.tripStatus})
+            #{item.id} {item.departureTime}-{item.arrivalTime} ({tripStatusRu(item.tripStatus)})
           </li>
         ))}
       </ul>

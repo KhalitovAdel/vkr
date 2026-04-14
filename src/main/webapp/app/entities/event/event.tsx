@@ -11,6 +11,8 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { overrideSortStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { ASC, DESC } from 'app/shared/util/pagination.constants';
 
+import { eventTypeRu } from 'app/shared/util/enum-labels-ru';
+
 import { getEntities } from './event.reducer';
 
 export const Event = () => {
@@ -68,39 +70,41 @@ export const Event = () => {
   return (
     <div>
       <h2 id="event-heading" data-cy="EventHeading">
-        Events
+        События
         <div className="d-flex justify-content-end">
           <Button className="me-2" variant="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Обновить список
           </Button>
           <Link to="/event/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
-            &nbsp; Создать новый Event
+            &nbsp; Создать событие
           </Link>
         </div>
       </h2>
       <div className="table-responsive">
-        {eventList?.length > 0 ? (
+        {loading ? (
+          <p className="text-muted ms-1">Загрузка…</p>
+        ) : eventList?.length > 0 ? (
           <Table responsive>
             <thead>
               <tr>
                 <th className="hand" onClick={sort('id')}>
-                  ID <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
+                  № <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
                 </th>
                 <th className="hand" onClick={sort('eventType')}>
-                  Event Type <FontAwesomeIcon icon={getSortIconByFieldName('eventType')} />
+                  Тип события <FontAwesomeIcon icon={getSortIconByFieldName('eventType')} />
                 </th>
                 <th className="hand" onClick={sort('eventTime')}>
-                  Event Time <FontAwesomeIcon icon={getSortIconByFieldName('eventTime')} />
+                  Время события <FontAwesomeIcon icon={getSortIconByFieldName('eventTime')} />
                 </th>
                 <th className="hand" onClick={sort('description')}>
-                  Description <FontAwesomeIcon icon={getSortIconByFieldName('description')} />
+                  Описание <FontAwesomeIcon icon={getSortIconByFieldName('description')} />
                 </th>
                 <th>
-                  Trip <FontAwesomeIcon icon="sort" />
+                  Рейс <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
-                  Vehicle <FontAwesomeIcon icon="sort" />
+                  ТС <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>
@@ -113,7 +117,7 @@ export const Event = () => {
                       {event.id}
                     </Button>
                   </td>
-                  <td>{event.eventType}</td>
+                  <td>{eventTypeRu(event.eventType)}</td>
                   <td>{event.eventTime ? <TextFormat type="date" value={event.eventTime} format={APP_DATE_FORMAT} /> : null}</td>
                   <td>{event.description}</td>
                   <td>{event.trip ? <Link to={`/trip/${event.trip.id}`}>{event.trip.id}</Link> : ''}</td>
@@ -141,7 +145,7 @@ export const Event = () => {
             </tbody>
           </Table>
         ) : (
-          !loading && <div className="alert alert-warning">Events не найдено</div>
+          <div className="alert alert-warning">Записи не найдены</div>
         )}
       </div>
     </div>

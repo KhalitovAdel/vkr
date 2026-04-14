@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { RouteType } from 'app/shared/model/enumerations/route-type.model';
+import { routeTypeRu } from 'app/shared/util/enum-labels-ru';
 
 import { createEntity, getEntity, reset, updateEntity } from './route.reducer';
 
@@ -75,19 +76,19 @@ export const RouteUpdate = () => {
       <Row className="justify-content-center">
         <Col md="8">
           <h2 id="transportSystemApp.route.home.createOrEditLabel" data-cy="RouteCreateUpdateHeading">
-            Создать или отредактировать Route
+            Создание или редактирование маршрута
           </h2>
         </Col>
       </Row>
       <Row className="justify-content-center">
         <Col md="8">
           {loading ? (
-            <p>Loading...</p>
+            <p>Загрузка…</p>
           ) : (
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
-              {!isNew && <ValidatedField name="id" required readOnly id="route-id" label="ID" validate={{ required: true }} />}
+              {!isNew && <ValidatedField name="id" required readOnly id="route-id" label="№" validate={{ required: true }} />}
               <ValidatedField
-                label="Route Number"
+                label="Номер маршрута"
                 id="route-routeNumber"
                 name="routeNumber"
                 data-cy="routeNumber"
@@ -98,7 +99,7 @@ export const RouteUpdate = () => {
                 }}
               />
               <ValidatedField
-                label="Route Name"
+                label="Название маршрута"
                 id="route-routeName"
                 name="routeName"
                 data-cy="routeName"
@@ -109,7 +110,7 @@ export const RouteUpdate = () => {
                 }}
               />
               <ValidatedField
-                label="Length"
+                label="Длина, км"
                 id="route-length"
                 name="length"
                 data-cy="length"
@@ -119,10 +120,10 @@ export const RouteUpdate = () => {
                   validate: v => isNumber(v) || 'Это поле должно быть число.',
                 }}
               />
-              <ValidatedField label="Route Type" id="route-routeType" name="routeType" data-cy="routeType" type="select">
+              <ValidatedField label="Тип маршрута" id="route-routeType" name="routeType" data-cy="routeType" type="select">
                 {routeTypeValues.map(routeType => (
                   <option value={routeType} key={routeType}>
-                    {routeType}
+                    {routeTypeRu(routeType)}
                   </option>
                 ))}
               </ValidatedField>

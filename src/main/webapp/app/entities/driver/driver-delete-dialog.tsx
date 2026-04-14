@@ -43,7 +43,7 @@ export const DriverDeleteDialog = () => {
       <ModalHeader data-cy="driverDeleteDialogHeading" closeButton>
         Подтвердите операцию удаления
       </ModalHeader>
-      <ModalBody id="transportSystemApp.driver.delete.question">Вы уверены что хотите удалить Driver {driverEntity.id}?</ModalBody>
+      <ModalBody id="transportSystemApp.driver.delete.question">Удалить водителя № {driverEntity.id}?</ModalBody>
       <ModalFooter>
         <Button variant="secondary" onClick={handleClose}>
           <FontAwesomeIcon icon="ban" />

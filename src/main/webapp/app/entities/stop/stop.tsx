@@ -67,14 +67,14 @@ export const Stop = () => {
   return (
     <div>
       <h2 id="stop-heading" data-cy="StopHeading">
-        Stops
+        Остановки
         <div className="d-flex justify-content-end">
           <Button className="me-2" variant="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Обновить список
           </Button>
           <Link to="/stop/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
-            &nbsp; Создать новый Stop
+            &nbsp; Создать остановку
           </Link>
         </div>
       </h2>
@@ -84,16 +84,16 @@ export const Stop = () => {
             <thead>
               <tr>
                 <th className="hand" onClick={sort('id')}>
-                  ID <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
+                  № <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
                 </th>
                 <th className="hand" onClick={sort('name')}>
-                  Name <FontAwesomeIcon icon={getSortIconByFieldName('name')} />
+                  Название <FontAwesomeIcon icon={getSortIconByFieldName('name')} />
                 </th>
                 <th className="hand" onClick={sort('latitude')}>
-                  Latitude <FontAwesomeIcon icon={getSortIconByFieldName('latitude')} />
+                  Широта <FontAwesomeIcon icon={getSortIconByFieldName('latitude')} />
                 </th>
                 <th className="hand" onClick={sort('longitude')}>
-                  Longitude <FontAwesomeIcon icon={getSortIconByFieldName('longitude')} />
+                  Долгота <FontAwesomeIcon icon={getSortIconByFieldName('longitude')} />
                 </th>
                 <th />
               </tr>
@@ -132,7 +132,7 @@ export const Stop = () => {
             </tbody>
           </Table>
         ) : (
-          !loading && <div className="alert alert-warning">Stops не найдено</div>
+          !loading && <div className="alert alert-warning">Записи не найдены</div>
         )}
       </div>
     </div>

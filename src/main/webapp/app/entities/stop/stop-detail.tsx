@@ -21,22 +21,22 @@ export const StopDetail = () => {
   return (
     <Row>
       <Col md="8">
-        <h2 data-cy="stopDetailsHeading">Stop</h2>
+        <h2 data-cy="stopDetailsHeading">Остановка</h2>
         <dl className="jh-entity-details">
           <dt>
-            <span id="id">ID</span>
+            <span id="id">№</span>
           </dt>
           <dd>{stopEntity.id}</dd>
           <dt>
-            <span id="name">Name</span>
+            <span id="name">Название</span>
           </dt>
           <dd>{stopEntity.name}</dd>
           <dt>
-            <span id="latitude">Latitude</span>
+            <span id="latitude">Широта</span>
           </dt>
           <dd>{stopEntity.latitude}</dd>
           <dt>
-            <span id="longitude">Longitude</span>
+            <span id="longitude">Долгота</span>
           </dt>
           <dd>{stopEntity.longitude}</dd>
         </dl>

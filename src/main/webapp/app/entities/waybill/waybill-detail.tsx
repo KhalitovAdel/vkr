@@ -23,18 +23,18 @@ export const WaybillDetail = () => {
   return (
     <Row>
       <Col md="8">
-        <h2 data-cy="waybillDetailsHeading">Waybill</h2>
+        <h2 data-cy="waybillDetailsHeading">Путевой лист</h2>
         <dl className="jh-entity-details">
           <dt>
-            <span id="id">ID</span>
+            <span id="id">№</span>
           </dt>
           <dd>{waybillEntity.id}</dd>
           <dt>
-            <span id="documentNumber">Document Number</span>
+            <span id="documentNumber">Номер документа</span>
           </dt>
           <dd>{waybillEntity.documentNumber}</dd>
           <dt>
-            <span id="actualDeparture">Actual Departure</span>
+            <span id="actualDeparture">Фактический выезд</span>
           </dt>
           <dd>
             {waybillEntity.actualDeparture ? (
@@ -42,25 +42,25 @@ export const WaybillDetail = () => {
             ) : null}
           </dd>
           <dt>
-            <span id="actualReturn">Actual Return</span>
+            <span id="actualReturn">Фактический возврат</span>
           </dt>
           <dd>
             {waybillEntity.actualReturn ? <TextFormat value={waybillEntity.actualReturn} type="date" format={APP_DATE_FORMAT} /> : null}
           </dd>
           <dt>
-            <span id="mileageStart">Mileage Start</span>
+            <span id="mileageStart">Пробег на выезд</span>
           </dt>
           <dd>{waybillEntity.mileageStart}</dd>
           <dt>
-            <span id="mileageEnd">Mileage End</span>
+            <span id="mileageEnd">Пробег на возврат</span>
           </dt>
           <dd>{waybillEntity.mileageEnd}</dd>
           <dt>
-            <span id="fuelConsumptionPlan">Fuel Consumption Plan</span>
+            <span id="fuelConsumptionPlan">Расход топлива (план)</span>
           </dt>
           <dd>{waybillEntity.fuelConsumptionPlan}</dd>
           <dt>
-            <span id="fuelConsumptionFact">Fuel Consumption Fact</span>
+            <span id="fuelConsumptionFact">Расход топлива (факт)</span>
           </dt>
           <dd>{waybillEntity.fuelConsumptionFact}</dd>
         </dl>

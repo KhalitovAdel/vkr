@@ -11,6 +11,8 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { overrideSortStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { ASC, DESC } from 'app/shared/util/pagination.constants';
 
+import { tripStatusRu } from 'app/shared/util/enum-labels-ru';
+
 import { getEntities } from './trip.reducer';
 
 export const Trip = () => {
@@ -68,14 +70,14 @@ export const Trip = () => {
   return (
     <div>
       <h2 id="trip-heading" data-cy="TripHeading">
-        Trips
+        Рейсы
         <div className="d-flex justify-content-end">
           <Button className="me-2" variant="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Обновить список
           </Button>
           <Link to="/trip/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
-            &nbsp; Создать новый Trip
+            &nbsp; Создать рейс
           </Link>
         </div>
       </h2>
@@ -85,31 +87,31 @@ export const Trip = () => {
             <thead>
               <tr>
                 <th className="hand" onClick={sort('id')}>
-                  ID <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
+                  № <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
                 </th>
                 <th className="hand" onClick={sort('departureTime')}>
-                  Departure Time <FontAwesomeIcon icon={getSortIconByFieldName('departureTime')} />
+                  Отправление <FontAwesomeIcon icon={getSortIconByFieldName('departureTime')} />
                 </th>
                 <th className="hand" onClick={sort('arrivalTime')}>
-                  Arrival Time <FontAwesomeIcon icon={getSortIconByFieldName('arrivalTime')} />
+                  Прибытие <FontAwesomeIcon icon={getSortIconByFieldName('arrivalTime')} />
                 </th>
                 <th className="hand" onClick={sort('tripDate')}>
-                  Trip Date <FontAwesomeIcon icon={getSortIconByFieldName('tripDate')} />
+                  Дата рейса <FontAwesomeIcon icon={getSortIconByFieldName('tripDate')} />
                 </th>
                 <th className="hand" onClick={sort('tripStatus')}>
-                  Trip Status <FontAwesomeIcon icon={getSortIconByFieldName('tripStatus')} />
+                  Статус <FontAwesomeIcon icon={getSortIconByFieldName('tripStatus')} />
                 </th>
                 <th>
-                  Waybill <FontAwesomeIcon icon="sort" />
+                  Путевой лист <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
-                  Vehicle <FontAwesomeIcon icon="sort" />
+                  ТС <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
-                  Driver <FontAwesomeIcon icon="sort" />
+                  Водитель <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
-                  Route <FontAwesomeIcon icon="sort" />
+                  Маршрут <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>
@@ -125,7 +127,7 @@ export const Trip = () => {
                   <td>{trip.departureTime}</td>
                   <td>{trip.arrivalTime}</td>
                   <td>{trip.tripDate ? <TextFormat type="date" value={trip.tripDate} format={APP_LOCAL_DATE_FORMAT} /> : null}</td>
-                  <td>{trip.tripStatus}</td>
+                  <td>{tripStatusRu(trip.tripStatus)}</td>
                   <td>{trip.waybill ? <Link to={`/waybill/${trip.waybill.id}`}>{trip.waybill.id}</Link> : ''}</td>
                   <td>{trip.vehicle ? <Link to={`/vehicle/${trip.vehicle.id}`}>{trip.vehicle.id}</Link> : ''}</td>
                   <td>{trip.driver ? <Link to={`/driver/${trip.driver.id}`}>{trip.driver.id}</Link> : ''}</td>
@@ -153,7 +155,7 @@ export const Trip = () => {
             </tbody>
           </Table>
         ) : (
-          !loading && <div className="alert alert-warning">Trips не найдено</div>
+          !loading && <div className="alert alert-warning">Записи не найдены</div>
         )}
       </div>
     </div>

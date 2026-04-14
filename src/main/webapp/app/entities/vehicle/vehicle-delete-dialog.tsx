@@ -43,7 +43,7 @@ export const VehicleDeleteDialog = () => {
       <ModalHeader data-cy="vehicleDeleteDialogHeading" closeButton>
         Подтвердите операцию удаления
       </ModalHeader>
-      <ModalBody id="transportSystemApp.vehicle.delete.question">Вы уверены что хотите удалить Vehicle {vehicleEntity.id}?</ModalBody>
+      <ModalBody id="transportSystemApp.vehicle.delete.question">Удалить транспортное средство № {vehicleEntity.id}?</ModalBody>
       <ModalFooter>
         <Button variant="secondary" onClick={handleClose}>
           <FontAwesomeIcon icon="ban" />

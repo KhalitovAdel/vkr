@@ -1,4 +1,4 @@
-import { entityCreateSaveButtonSelector } from '../support/entity';
+import { entityCreateSaveButtonSelector, vkrScreenshot } from '../support/entity';
 import {
   driverBody,
   emptyIds,
@@ -112,6 +112,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
       cy.get('.app-container').should('contain', String(body.operational));
       cy.get('.app-container').should('contain', String(body.repair));
       cy.get('[data-cy="dashboardLiveRefreshNote"]').should('not.exist');
+      vkrScreenshot('Case-01-dashboard-fleet');
     });
   });
 
@@ -135,6 +136,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
           const sn = response?.body?.stateNumber as string;
           expect(sn, 'suggest-vehicle should return stateNumber').to.be.a('string').and.not.be.empty;
           cy.get('.alert-success').should('be.visible').and('contain', sn);
+          vkrScreenshot('Case-02-suggest-vehicle-success');
         });
       });
     });
@@ -182,6 +184,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
               const sn = response?.body?.stateNumber as string;
               expect(sn).to.not.eq(busyVehicle.stateNumber);
               cy.get('.alert-success').should('contain', sn).and('not.contain', busyVehicle.stateNumber);
+              vkrScreenshot('Case-03-suggest-vehicle-excludes-busy');
             });
           });
         });
@@ -225,6 +228,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
               cy.get(entityCreateSaveButtonSelector).click();
               cy.wait('@postTrip').then(({ response }) => {
                 expectTripCreateRejected(response!);
+                vkrScreenshot('Case-04-trip-driver-overlap-400');
               });
             });
           });
@@ -243,6 +247,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
     cy.get('[data-cy="tripDate"]').clear().type(TEST_DATE);
     cy.get(entityCreateSaveButtonSelector).click();
     cy.wait('@postTrip').its('response.statusCode').should('eq', 400);
+    vkrScreenshot('Case-05-trip-arrival-not-after-departure-400');
   });
 
   it('case 6 (UI_TEST_CASES §6): /vehicle/:id/edit — REPAIR → /trip/new с этим ТС → 400', () => {
@@ -273,6 +278,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
         cy.get(entityCreateSaveButtonSelector).click();
         cy.wait('@postTrip').then(({ response }) => {
           expectTripCreateRejected(response!);
+          vkrScreenshot('Case-06-vehicle-repair-trip-400');
         });
       });
     });
@@ -312,6 +318,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
           cy.wait('@postTrip').then(({ response: r2 }) => {
             expectTripCreateRejected(r2!);
             expect(JSON.stringify(r2?.body ?? '')).to.match(/пригородных|стаж|constraint|validation|not valid|bad request/i);
+            vkrScreenshot('Case-07-driver-experience-suburb-400');
           });
         });
       });
@@ -349,6 +356,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
           cy.wait('@postTrip').then(({ response }) => {
             expectTripCreateRejected(response!);
             expect(JSON.stringify(response?.body ?? '')).to.match(/пересечение|тс|водител|занят|constraint|validation|not valid|bad request/i);
+            vkrScreenshot('Case-08-trip-vehicle-overlap-400');
           });
         });
       });
@@ -386,7 +394,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
             cy.get('[data-cy="mileageEnd"]').clear().type('100');
             cy.get(entityCreateSaveButtonSelector).click();
             cy.wait('@putWaybill').its('response.statusCode').should('eq', 200);
-            cy.url().should('match', /\/waybill$/);
+            cy.url().should('match', /\/waybill(\?.*)?$/);
             cy.authenticatedRequest({
               method: 'POST',
               url: `/api/waybills/${wb.id}/departure`,
@@ -395,6 +403,10 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
             cy.authenticatedRequest({ url: `/api/trips/${trip.id}` }).then(({ body: t }) => {
               expect(t.tripStatus).to.eq('ONGOING');
             });
+            cy.visit(`/trip/${trip.id}`);
+            waitAuthenticatedShell();
+            cy.get('.jh-entity-details').should('contain', 'На линии');
+            vkrScreenshot('Case-09-waybill-departure-trip-ongoing');
           });
         });
       });
@@ -436,7 +448,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
             cy.get('[data-cy="mileageEnd"]').clear().type('250');
             cy.get(entityCreateSaveButtonSelector).click();
             cy.wait('@putWaybill10').its('response.statusCode').should('eq', 200);
-            cy.url().should('match', /\/waybill$/);
+            cy.url().should('match', /\/waybill(\?.*)?$/);
             cy.authenticatedRequest({
               method: 'POST',
               url: `/api/waybills/${wb.id}/return`,
@@ -445,6 +457,10 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
             cy.authenticatedRequest({ url: `/api/trips/${trip.id}` }).then(({ body: t }) => {
               expect(t.tripStatus).to.eq('COMPLETED');
             });
+            cy.visit(`/trip/${trip.id}`);
+            waitAuthenticatedShell();
+            cy.get('.jh-entity-details').should('contain', 'Завершён');
+            vkrScreenshot('Case-10-waybill-return-trip-completed');
           });
         });
       });
@@ -463,6 +479,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
       cy.get('[data-cy="mileageEnd"]').clear().type('100');
       cy.get(entityCreateSaveButtonSelector).click();
       cy.wait('@putWaybill').its('response.statusCode').should('eq', 400);
+      vkrScreenshot('Case-11-waybill-mileage-validation-400');
     });
   });
 
@@ -478,6 +495,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
       cy.get('[data-cy="actualReturn"]').clear().type('2030-06-15T08:00');
       cy.get(entityCreateSaveButtonSelector).click();
       cy.wait('@putWaybill').its('response.statusCode').should('eq', 400);
+      vkrScreenshot('Case-12-waybill-return-time-validation-400');
     });
   });
 
@@ -496,6 +514,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
         cy.get('.app-container').should('contain', String(fleet.total));
         cy.get('.app-container').should('contain', String(fleet.operational));
         cy.get('.app-container').should('contain', String(fleet.repair));
+        vkrScreenshot('Case-13-fleet-status');
       });
     });
   });
@@ -528,7 +547,8 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
               cy.get('input[type=date]').clear().type(TEST_DATE);
               cy.contains('button', 'Показать').click();
             });
-          cy.get('.app-container ul li').should('contain', `#${trip.id}`).and('contain', 'SCHEDULED');
+          cy.get('.app-container ul li').should('contain', `#${trip.id}`).and('contain', 'Запланирован');
+          vkrScreenshot('Case-14-trips-by-date');
         });
       });
     });
@@ -566,6 +586,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
                 cy.contains('button', 'Показать').click();
               });
             cy.get('.app-container ul li').should('contain', `#${trip.id}`);
+            vkrScreenshot('Case-15-vehicle-schedule');
 
             cy.visit('/driver/schedule');
             waitAuthenticatedShell();
@@ -577,6 +598,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
                 cy.contains('button', 'Показать').click();
               });
             cy.get('.app-container ul li').should('contain', `#${trip.id}`);
+            vkrScreenshot('Case-15-driver-schedule');
           });
         });
       });
@@ -609,6 +631,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
       cy.get('[data-cy="vehicleDetailsHeading"]').should('be.visible');
       cy.get('.jh-entity-details').should('contain', '2019');
       cy.url().should('match', /\/vehicle\/\d+$/);
+      vkrScreenshot('Case-16-vehicle-year-detail');
     });
   });
 });

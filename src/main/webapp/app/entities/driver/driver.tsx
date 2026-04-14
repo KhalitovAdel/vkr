@@ -68,14 +68,14 @@ export const Driver = () => {
   return (
     <div>
       <h2 id="driver-heading" data-cy="DriverHeading">
-        Drivers
+        Водители
         <div className="d-flex justify-content-end">
           <Button className="me-2" variant="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Обновить список
           </Button>
           <Link to="/driver/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
-            &nbsp; Создать новый Driver
+            &nbsp; Создать водителя
           </Link>
         </div>
       </h2>
@@ -85,22 +85,22 @@ export const Driver = () => {
             <thead>
               <tr>
                 <th className="hand" onClick={sort('id')}>
-                  ID <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
+                  № <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
                 </th>
                 <th className="hand" onClick={sort('employeeNumber')}>
-                  Employee Number <FontAwesomeIcon icon={getSortIconByFieldName('employeeNumber')} />
+                  Табельный номер <FontAwesomeIcon icon={getSortIconByFieldName('employeeNumber')} />
                 </th>
                 <th className="hand" onClick={sort('fullName')}>
-                  Full Name <FontAwesomeIcon icon={getSortIconByFieldName('fullName')} />
+                  ФИО <FontAwesomeIcon icon={getSortIconByFieldName('fullName')} />
                 </th>
                 <th className="hand" onClick={sort('licenseCategory')}>
-                  License Category <FontAwesomeIcon icon={getSortIconByFieldName('licenseCategory')} />
+                  Категория прав <FontAwesomeIcon icon={getSortIconByFieldName('licenseCategory')} />
                 </th>
                 <th className="hand" onClick={sort('experience')}>
-                  Experience <FontAwesomeIcon icon={getSortIconByFieldName('experience')} />
+                  Стаж (лет) <FontAwesomeIcon icon={getSortIconByFieldName('experience')} />
                 </th>
                 <th className="hand" onClick={sort('hireDate')}>
-                  Hire Date <FontAwesomeIcon icon={getSortIconByFieldName('hireDate')} />
+                  Дата приёма <FontAwesomeIcon icon={getSortIconByFieldName('hireDate')} />
                 </th>
                 <th />
               </tr>
@@ -141,7 +141,7 @@ export const Driver = () => {
             </tbody>
           </Table>
         ) : (
-          !loading && <div className="alert alert-warning">Drivers не найдено</div>
+          !loading && <div className="alert alert-warning">Записи не найдены</div>
         )}
       </div>
     </div>

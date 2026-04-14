@@ -75,19 +75,19 @@ export const StopUpdate = () => {
       <Row className="justify-content-center">
         <Col md="8">
           <h2 id="transportSystemApp.stop.home.createOrEditLabel" data-cy="StopCreateUpdateHeading">
-            Создать или отредактировать Stop
+            Создание или редактирование остановки
           </h2>
         </Col>
       </Row>
       <Row className="justify-content-center">
         <Col md="8">
           {loading ? (
-            <p>Loading...</p>
+            <p>Загрузка…</p>
           ) : (
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
-              {!isNew && <ValidatedField name="id" required readOnly id="stop-id" label="ID" validate={{ required: true }} />}
+              {!isNew && <ValidatedField name="id" required readOnly id="stop-id" label="№" validate={{ required: true }} />}
               <ValidatedField
-                label="Name"
+                label="Название"
                 id="stop-name"
                 name="name"
                 data-cy="name"
@@ -97,8 +97,8 @@ export const StopUpdate = () => {
                   maxLength: { value: 100, message: 'Это поле не может быть длинее, чем 100 символов.' },
                 }}
               />
-              <ValidatedField label="Latitude" id="stop-latitude" name="latitude" data-cy="latitude" type="text" />
-              <ValidatedField label="Longitude" id="stop-longitude" name="longitude" data-cy="longitude" type="text" />
+              <ValidatedField label="Широта" id="stop-latitude" name="latitude" data-cy="latitude" type="text" />
+              <ValidatedField label="Долгота" id="stop-longitude" name="longitude" data-cy="longitude" type="text" />
               <Button as={Link as any} id="cancel-save" data-cy="entityCreateCancelButton" to="/stop" replace variant="info">
                 <FontAwesomeIcon icon="arrow-left" />
                 &nbsp;

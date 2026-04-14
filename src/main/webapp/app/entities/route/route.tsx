@@ -10,6 +10,8 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { overrideSortStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { ASC, DESC } from 'app/shared/util/pagination.constants';
 
+import { routeTypeRu } from 'app/shared/util/enum-labels-ru';
+
 import { getEntities } from './route.reducer';
 
 export const Route = () => {
@@ -67,14 +69,14 @@ export const Route = () => {
   return (
     <div>
       <h2 id="route-heading" data-cy="RouteHeading">
-        Routes
+        Маршруты
         <div className="d-flex justify-content-end">
           <Button className="me-2" variant="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Обновить список
           </Button>
           <Link to="/route/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
-            &nbsp; Создать новый Route
+            &nbsp; Создать маршрут
           </Link>
         </div>
       </h2>
@@ -84,19 +86,19 @@ export const Route = () => {
             <thead>
               <tr>
                 <th className="hand" onClick={sort('id')}>
-                  ID <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
+                  № <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
                 </th>
                 <th className="hand" onClick={sort('routeNumber')}>
-                  Route Number <FontAwesomeIcon icon={getSortIconByFieldName('routeNumber')} />
+                  Номер маршрута <FontAwesomeIcon icon={getSortIconByFieldName('routeNumber')} />
                 </th>
                 <th className="hand" onClick={sort('routeName')}>
-                  Route Name <FontAwesomeIcon icon={getSortIconByFieldName('routeName')} />
+                  Название <FontAwesomeIcon icon={getSortIconByFieldName('routeName')} />
                 </th>
                 <th className="hand" onClick={sort('length')}>
-                  Length <FontAwesomeIcon icon={getSortIconByFieldName('length')} />
+                  Длина, км <FontAwesomeIcon icon={getSortIconByFieldName('length')} />
                 </th>
                 <th className="hand" onClick={sort('routeType')}>
-                  Route Type <FontAwesomeIcon icon={getSortIconByFieldName('routeType')} />
+                  Тип маршрута <FontAwesomeIcon icon={getSortIconByFieldName('routeType')} />
                 </th>
                 <th />
               </tr>
@@ -112,7 +114,7 @@ export const Route = () => {
                   <td>{route.routeNumber}</td>
                   <td>{route.routeName}</td>
                   <td>{route.length}</td>
-                  <td>{route.routeType}</td>
+                  <td>{routeTypeRu(route.routeType)}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button as={Link as any} to={`/route/${route.id}`} variant="info" size="sm" data-cy="entityDetailsButton">
@@ -136,7 +138,7 @@ export const Route = () => {
             </tbody>
           </Table>
         ) : (
-          !loading && <div className="alert alert-warning">Routes не найдено</div>
+          !loading && <div className="alert alert-warning">Записи не найдены</div>
         )}
       </div>
     </div>

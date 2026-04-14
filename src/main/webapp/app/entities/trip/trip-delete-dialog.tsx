@@ -43,7 +43,7 @@ export const TripDeleteDialog = () => {
       <ModalHeader data-cy="tripDeleteDialogHeading" closeButton>
         Подтвердите операцию удаления
       </ModalHeader>
-      <ModalBody id="transportSystemApp.trip.delete.question">Вы уверены что хотите удалить Trip {tripEntity.id}?</ModalBody>
+      <ModalBody id="transportSystemApp.trip.delete.question">Удалить рейс № {tripEntity.id}?</ModalBody>
       <ModalFooter>
         <Button variant="secondary" onClick={handleClose}>
           <FontAwesomeIcon icon="ban" />

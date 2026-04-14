@@ -43,7 +43,7 @@ export const WaybillDeleteDialog = () => {
       <ModalHeader data-cy="waybillDeleteDialogHeading" closeButton>
         Подтвердите операцию удаления
       </ModalHeader>
-      <ModalBody id="transportSystemApp.waybill.delete.question">Вы уверены что хотите удалить Waybill {waybillEntity.id}?</ModalBody>
+      <ModalBody id="transportSystemApp.waybill.delete.question">Удалить путевой лист № {waybillEntity.id}?</ModalBody>
       <ModalFooter>
         <Button variant="secondary" onClick={handleClose}>
           <FontAwesomeIcon icon="ban" />

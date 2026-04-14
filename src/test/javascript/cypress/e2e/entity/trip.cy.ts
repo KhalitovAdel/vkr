@@ -165,11 +165,11 @@ describe('Trip e2e test', () => {
     });
 
     it('should create an instance of Trip', () => {
-      cy.get(`[data-cy="departureTime"]`).type('17:07:00');
-      cy.get(`[data-cy="departureTime"]`).invoke('val').should('match', new RegExp('17:07:00'));
+      cy.get(`[data-cy="departureTime"]`).type('08:50:00');
+      cy.get(`[data-cy="departureTime"]`).invoke('val').should('match', new RegExp('08:50:00'));
 
-      cy.get(`[data-cy="arrivalTime"]`).type('08:50:00');
-      cy.get(`[data-cy="arrivalTime"]`).invoke('val').should('match', new RegExp('08:50:00'));
+      cy.get(`[data-cy="arrivalTime"]`).type('17:07:00');
+      cy.get(`[data-cy="arrivalTime"]`).invoke('val').should('match', new RegExp('17:07:00'));
 
       cy.get(`[data-cy="tripDate"]`).type('2026-03-25');
       cy.get(`[data-cy="tripDate"]`).blur();

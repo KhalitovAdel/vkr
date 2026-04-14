@@ -67,14 +67,14 @@ export const RouteStop = () => {
   return (
     <div>
       <h2 id="route-stop-heading" data-cy="RouteStopHeading">
-        Route Stops
+        Остановки на маршрутах
         <div className="d-flex justify-content-end">
           <Button className="me-2" variant="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Обновить список
           </Button>
           <Link to="/route-stop/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
-            &nbsp; Создать новый Route Stop
+            &nbsp; Создать запись
           </Link>
         </div>
       </h2>
@@ -84,19 +84,19 @@ export const RouteStop = () => {
             <thead>
               <tr>
                 <th className="hand" onClick={sort('id')}>
-                  ID <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
+                  № <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
                 </th>
                 <th className="hand" onClick={sort('stopOrder')}>
-                  Stop Order <FontAwesomeIcon icon={getSortIconByFieldName('stopOrder')} />
+                  Порядок <FontAwesomeIcon icon={getSortIconByFieldName('stopOrder')} />
                 </th>
                 <th className="hand" onClick={sort('distanceFromPrev')}>
-                  Distance From Prev <FontAwesomeIcon icon={getSortIconByFieldName('distanceFromPrev')} />
+                  Расстояние от пред., км <FontAwesomeIcon icon={getSortIconByFieldName('distanceFromPrev')} />
                 </th>
                 <th>
-                  Route <FontAwesomeIcon icon="sort" />
+                  Маршрут <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
-                  Stop <FontAwesomeIcon icon="sort" />
+                  Остановка <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>
@@ -142,7 +142,7 @@ export const RouteStop = () => {
             </tbody>
           </Table>
         ) : (
-          !loading && <div className="alert alert-warning">Route Stops не найдено</div>
+          !loading && <div className="alert alert-warning">Записи не найдены</div>
         )}
       </div>
     </div>

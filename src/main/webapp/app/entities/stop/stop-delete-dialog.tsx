@@ -43,7 +43,7 @@ export const StopDeleteDialog = () => {
       <ModalHeader data-cy="stopDeleteDialogHeading" closeButton>
         Подтвердите операцию удаления
       </ModalHeader>
-      <ModalBody id="transportSystemApp.stop.delete.question">Вы уверены что хотите удалить Stop {stopEntity.id}?</ModalBody>
+      <ModalBody id="transportSystemApp.stop.delete.question">Удалить остановку № {stopEntity.id}?</ModalBody>
       <ModalFooter>
         <Button variant="secondary" onClick={handleClose}>
           <FontAwesomeIcon icon="ban" />

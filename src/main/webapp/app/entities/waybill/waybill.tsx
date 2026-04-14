@@ -68,14 +68,14 @@ export const Waybill = () => {
   return (
     <div>
       <h2 id="waybill-heading" data-cy="WaybillHeading">
-        Waybills
+        Путевые листы
         <div className="d-flex justify-content-end">
           <Button className="me-2" variant="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Обновить список
           </Button>
           <Link to="/waybill/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
-            &nbsp; Создать новый Waybill
+            &nbsp; Создать путевой лист
           </Link>
         </div>
       </h2>
@@ -85,28 +85,28 @@ export const Waybill = () => {
             <thead>
               <tr>
                 <th className="hand" onClick={sort('id')}>
-                  ID <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
+                  № <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
                 </th>
                 <th className="hand" onClick={sort('documentNumber')}>
-                  Document Number <FontAwesomeIcon icon={getSortIconByFieldName('documentNumber')} />
+                  Номер документа <FontAwesomeIcon icon={getSortIconByFieldName('documentNumber')} />
                 </th>
                 <th className="hand" onClick={sort('actualDeparture')}>
-                  Actual Departure <FontAwesomeIcon icon={getSortIconByFieldName('actualDeparture')} />
+                  Фактический выезд <FontAwesomeIcon icon={getSortIconByFieldName('actualDeparture')} />
                 </th>
                 <th className="hand" onClick={sort('actualReturn')}>
-                  Actual Return <FontAwesomeIcon icon={getSortIconByFieldName('actualReturn')} />
+                  Фактический возврат <FontAwesomeIcon icon={getSortIconByFieldName('actualReturn')} />
                 </th>
                 <th className="hand" onClick={sort('mileageStart')}>
-                  Mileage Start <FontAwesomeIcon icon={getSortIconByFieldName('mileageStart')} />
+                  Пробег (нач.) <FontAwesomeIcon icon={getSortIconByFieldName('mileageStart')} />
                 </th>
                 <th className="hand" onClick={sort('mileageEnd')}>
-                  Mileage End <FontAwesomeIcon icon={getSortIconByFieldName('mileageEnd')} />
+                  Пробег (кон.) <FontAwesomeIcon icon={getSortIconByFieldName('mileageEnd')} />
                 </th>
                 <th className="hand" onClick={sort('fuelConsumptionPlan')}>
-                  Fuel Consumption Plan <FontAwesomeIcon icon={getSortIconByFieldName('fuelConsumptionPlan')} />
+                  Расход топл. (план) <FontAwesomeIcon icon={getSortIconByFieldName('fuelConsumptionPlan')} />
                 </th>
                 <th className="hand" onClick={sort('fuelConsumptionFact')}>
-                  Fuel Consumption Fact <FontAwesomeIcon icon={getSortIconByFieldName('fuelConsumptionFact')} />
+                  Расход топл. (факт) <FontAwesomeIcon icon={getSortIconByFieldName('fuelConsumptionFact')} />
                 </th>
                 <th />
               </tr>
@@ -151,7 +151,7 @@ export const Waybill = () => {
             </tbody>
           </Table>
         ) : (
-          !loading && <div className="alert alert-warning">Waybills не найдено</div>
+          !loading && <div className="alert alert-warning">Записи не найдены</div>
         )}
       </div>
     </div>

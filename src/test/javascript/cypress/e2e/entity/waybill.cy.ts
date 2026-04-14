@@ -172,15 +172,15 @@ describe('Waybill e2e test', () => {
       cy.get(`[data-cy="actualDeparture"]`).blur();
       cy.get(`[data-cy="actualDeparture"]`).should('have.value', '2026-03-26T15:11');
 
-      cy.get(`[data-cy="actualReturn"]`).type('2026-03-25T18:00');
+      cy.get(`[data-cy="actualReturn"]`).type('2026-03-26T18:00');
       cy.get(`[data-cy="actualReturn"]`).blur();
-      cy.get(`[data-cy="actualReturn"]`).should('have.value', '2026-03-25T18:00');
+      cy.get(`[data-cy="actualReturn"]`).should('have.value', '2026-03-26T18:00');
 
-      cy.get(`[data-cy="mileageStart"]`).type('32277.92');
-      cy.get(`[data-cy="mileageStart"]`).should('have.value', '32277.92');
+      cy.get(`[data-cy="mileageStart"]`).type('1000');
+      cy.get(`[data-cy="mileageStart"]`).should('have.value', '1000');
 
-      cy.get(`[data-cy="mileageEnd"]`).type('2480.4');
-      cy.get(`[data-cy="mileageEnd"]`).should('have.value', '2480.4');
+      cy.get(`[data-cy="mileageEnd"]`).type('2500.4');
+      cy.get(`[data-cy="mileageEnd"]`).should('have.value', '2500.4');
 
       cy.get(`[data-cy="fuelConsumptionPlan"]`).type('24712.33');
       cy.get(`[data-cy="fuelConsumptionPlan"]`).should('have.value', '24712.33');

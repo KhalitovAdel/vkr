@@ -7,14 +7,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const BrandIcon = props => (
   <div {...props} className="brand-icon">
-    <img src="content/images/logo-jhipster.png" alt="Logo" />
+    <img src="content/images/logo-jhipster.png" alt="Логотип" />
   </div>
 );
 
 export const Brand = () => (
   <NavbarBrand as={Link as any} to="/" className="brand-logo">
     <BrandIcon />
-    <span className="brand-title">TransportSystem</span>
+    <span className="brand-title">Транспортная система</span>
     <span className="navbar-version">{VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`}</span>
   </NavbarBrand>
 );

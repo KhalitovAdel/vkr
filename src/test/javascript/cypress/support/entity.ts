@@ -15,6 +15,11 @@ export const entityEditButtonSelector = '[data-cy="entityEditButton"]';
 export const entityDeleteButtonSelector = '[data-cy="entityDeleteButton"]';
 export const entityConfirmDeleteButtonSelector = '[data-cy="entityConfirmDeleteButton"]';
 
+/** Скриншоты для ВКР: каталог `vkr/` внутри папки спека в `target/cypress/screenshots`. */
+export function vkrScreenshot(slug: string) {
+  cy.screenshot(`vkr/${slug}`, { capture: 'viewport' });
+}
+
 // ***********************************************
 // End Specific Selector Attributes for Cypress
 // ***********************************************

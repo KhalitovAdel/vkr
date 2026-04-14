@@ -43,7 +43,7 @@ export const EventDeleteDialog = () => {
       <ModalHeader data-cy="eventDeleteDialogHeading" closeButton>
         Подтвердите операцию удаления
       </ModalHeader>
-      <ModalBody id="transportSystemApp.event.delete.question">Вы уверены что хотите удалить Event {eventEntity.id}?</ModalBody>
+      <ModalBody id="transportSystemApp.event.delete.question">Удалить событие № {eventEntity.id}?</ModalBody>
       <ModalFooter>
         <Button variant="secondary" onClick={handleClose}>
           <FontAwesomeIcon icon="ban" />

@@ -10,6 +10,8 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { overrideSortStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { ASC, DESC } from 'app/shared/util/pagination.constants';
 
+import { capacityTypeRu, technicalStatusRu, vehicleTypeRu } from 'app/shared/util/enum-labels-ru';
+
 import { getEntities } from './vehicle.reducer';
 
 export const Vehicle = () => {
@@ -67,14 +69,14 @@ export const Vehicle = () => {
   return (
     <div>
       <h2 id="vehicle-heading" data-cy="VehicleHeading">
-        Vehicles
+        Транспортные средства
         <div className="d-flex justify-content-end">
           <Button className="me-2" variant="info" onClick={handleSyncList} disabled={loading}>
             <FontAwesomeIcon icon="sync" spin={loading} /> Обновить список
           </Button>
           <Link to="/vehicle/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
             <FontAwesomeIcon icon="plus" />
-            &nbsp; Создать новый Vehicle
+            &nbsp; Создать ТС
           </Link>
         </div>
       </h2>
@@ -84,31 +86,31 @@ export const Vehicle = () => {
             <thead>
               <tr>
                 <th className="hand" onClick={sort('id')}>
-                  ID <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
+                  № <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
                 </th>
                 <th className="hand" onClick={sort('stateNumber')}>
-                  State Number <FontAwesomeIcon icon={getSortIconByFieldName('stateNumber')} />
+                  Госномер <FontAwesomeIcon icon={getSortIconByFieldName('stateNumber')} />
                 </th>
                 <th className="hand" onClick={sort('model')}>
-                  Model <FontAwesomeIcon icon={getSortIconByFieldName('model')} />
+                  Модель <FontAwesomeIcon icon={getSortIconByFieldName('model')} />
                 </th>
                 <th className="hand" onClick={sort('vehicleType')}>
-                  Vehicle Type <FontAwesomeIcon icon={getSortIconByFieldName('vehicleType')} />
+                  Тип ТС <FontAwesomeIcon icon={getSortIconByFieldName('vehicleType')} />
                 </th>
                 <th className="hand" onClick={sort('capacity')}>
-                  Capacity <FontAwesomeIcon icon={getSortIconByFieldName('capacity')} />
+                  Вместимость (класс) <FontAwesomeIcon icon={getSortIconByFieldName('capacity')} />
                 </th>
                 <th className="hand" onClick={sort('passengerCapacity')}>
-                  Passenger Capacity <FontAwesomeIcon icon={getSortIconByFieldName('passengerCapacity')} />
+                  Пассажировместимость <FontAwesomeIcon icon={getSortIconByFieldName('passengerCapacity')} />
                 </th>
                 <th className="hand" onClick={sort('year')}>
-                  Year <FontAwesomeIcon icon={getSortIconByFieldName('year')} />
+                  Год выпуска <FontAwesomeIcon icon={getSortIconByFieldName('year')} />
                 </th>
                 <th className="hand" onClick={sort('technicalStatus')}>
-                  Technical Status <FontAwesomeIcon icon={getSortIconByFieldName('technicalStatus')} />
+                  Техсостояние <FontAwesomeIcon icon={getSortIconByFieldName('technicalStatus')} />
                 </th>
                 <th className="hand" onClick={sort('mileage')}>
-                  Mileage <FontAwesomeIcon icon={getSortIconByFieldName('mileage')} />
+                  Пробег <FontAwesomeIcon icon={getSortIconByFieldName('mileage')} />
                 </th>
                 <th />
               </tr>
@@ -123,11 +125,11 @@ export const Vehicle = () => {
                   </td>
                   <td>{vehicle.stateNumber}</td>
                   <td>{vehicle.model}</td>
-                  <td>{vehicle.vehicleType}</td>
-                  <td>{vehicle.capacity}</td>
+                  <td>{vehicleTypeRu(vehicle.vehicleType)}</td>
+                  <td>{capacityTypeRu(vehicle.capacity)}</td>
                   <td>{vehicle.passengerCapacity}</td>
                   <td>{vehicle.year}</td>
-                  <td>{vehicle.technicalStatus}</td>
+                  <td>{technicalStatusRu(vehicle.technicalStatus)}</td>
                   <td>{vehicle.mileage}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
@@ -152,7 +154,7 @@ export const Vehicle = () => {
             </tbody>
           </Table>
         ) : (
-          !loading && <div className="alert alert-warning">Vehicles не найдено</div>
+          !loading && <div className="alert alert-warning">Записи не найдены</div>
         )}
       </div>
     </div>

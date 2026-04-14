@@ -86,19 +86,19 @@ export const RouteStopUpdate = () => {
       <Row className="justify-content-center">
         <Col md="8">
           <h2 id="transportSystemApp.routeStop.home.createOrEditLabel" data-cy="RouteStopCreateUpdateHeading">
-            Создать или отредактировать Route Stop
+            Создание или редактирование остановки на маршруте
           </h2>
         </Col>
       </Row>
       <Row className="justify-content-center">
         <Col md="8">
           {loading ? (
-            <p>Loading...</p>
+            <p>Загрузка…</p>
           ) : (
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
-              {!isNew && <ValidatedField name="id" required readOnly id="route-stop-id" label="ID" validate={{ required: true }} />}
+              {!isNew && <ValidatedField name="id" required readOnly id="route-stop-id" label="№" validate={{ required: true }} />}
               <ValidatedField
-                label="Stop Order"
+                label="Порядок остановки"
                 id="route-stop-stopOrder"
                 name="stopOrder"
                 data-cy="stopOrder"
@@ -109,13 +109,13 @@ export const RouteStopUpdate = () => {
                 }}
               />
               <ValidatedField
-                label="Distance From Prev"
+                label="Расстояние от предыдущей, км"
                 id="route-stop-distanceFromPrev"
                 name="distanceFromPrev"
                 data-cy="distanceFromPrev"
                 type="text"
               />
-              <ValidatedField id="route-stop-route" name="route" data-cy="route" label="Route" type="select">
+              <ValidatedField id="route-stop-route" name="route" data-cy="route" label="Маршрут" type="select">
                 <option value="" key="0" />
                 {routes
                   ? routes.map(otherEntity => (
@@ -125,7 +125,7 @@ export const RouteStopUpdate = () => {
                     ))
                   : null}
               </ValidatedField>
-              <ValidatedField id="route-stop-stop" name="stop" data-cy="stop" label="Stop" type="select">
+              <ValidatedField id="route-stop-stop" name="stop" data-cy="stop" label="Остановка" type="select">
                 <option value="" key="0" />
                 {stops
                   ? stops.map(otherEntity => (

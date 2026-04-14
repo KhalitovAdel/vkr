@@ -21,7 +21,7 @@ const Header = (props: IHeaderProps) => {
   const renderDevRibbon = () =>
     !props.isInProduction && (
       <div className="ribbon dev">
-        <a href="">Development</a>
+        <a href="">Режим разработки</a>
       </div>
     );
 
@@ -32,7 +32,7 @@ const Header = (props: IHeaderProps) => {
       {renderDevRibbon()}
       <LoadingBar className="loading-bar" />
       <Navbar data-cy="navbar" data-bs-theme="dark" expand="md" fixed="top" className="bg-primary" collapseOnSelect>
-        <Navbar.Toggle aria-controls="header-tabs" aria-label="Menu" />
+        <Navbar.Toggle aria-controls="header-tabs" aria-label="Меню" />
         <Brand />
         <Navbar.Collapse id="header-tabs">
           <Nav className="ms-auto">

@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { APP_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { eventTypeRu } from 'app/shared/util/enum-labels-ru';
+
 import { getEntity } from './event.reducer';
 
 export const EventDetail = () => {
@@ -23,27 +25,27 @@ export const EventDetail = () => {
   return (
     <Row>
       <Col md="8">
-        <h2 data-cy="eventDetailsHeading">Event</h2>
+        <h2 data-cy="eventDetailsHeading">Событие</h2>
         <dl className="jh-entity-details">
           <dt>
-            <span id="id">ID</span>
+            <span id="id">№</span>
           </dt>
           <dd>{eventEntity.id}</dd>
           <dt>
-            <span id="eventType">Event Type</span>
+            <span id="eventType">Тип события</span>
           </dt>
-          <dd>{eventEntity.eventType}</dd>
+          <dd>{eventTypeRu(eventEntity.eventType)}</dd>
           <dt>
-            <span id="eventTime">Event Time</span>
+            <span id="eventTime">Время события</span>
           </dt>
           <dd>{eventEntity.eventTime ? <TextFormat value={eventEntity.eventTime} type="date" format={APP_DATE_FORMAT} /> : null}</dd>
           <dt>
-            <span id="description">Description</span>
+            <span id="description">Описание</span>
           </dt>
           <dd>{eventEntity.description}</dd>
-          <dt>Trip</dt>
+          <dt>Рейс</dt>
           <dd>{eventEntity.trip ? eventEntity.trip.id : ''}</dd>
-          <dt>Vehicle</dt>
+          <dt>Транспортное средство</dt>
           <dd>{eventEntity.vehicle ? eventEntity.vehicle.id : ''}</dd>
         </dl>
         <Button as={Link as any} to="/event" replace variant="info" data-cy="entityDetailsBackButton">

@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { CapacityType } from 'app/shared/model/enumerations/capacity-type.model';
 import { TechnicalStatus } from 'app/shared/model/enumerations/technical-status.model';
 import { VehicleType } from 'app/shared/model/enumerations/vehicle-type.model';
+import { capacityTypeRu, technicalStatusRu, vehicleTypeRu } from 'app/shared/util/enum-labels-ru';
 
 import { createEntity, getEntity, reset, updateEntity } from './vehicle.reducer';
 
@@ -87,19 +88,19 @@ export const VehicleUpdate = () => {
       <Row className="justify-content-center">
         <Col md="8">
           <h2 id="transportSystemApp.vehicle.home.createOrEditLabel" data-cy="VehicleCreateUpdateHeading">
-            Создать или отредактировать Vehicle
+            Создание или редактирование транспортного средства
           </h2>
         </Col>
       </Row>
       <Row className="justify-content-center">
         <Col md="8">
           {loading ? (
-            <p>Loading...</p>
+            <p>Загрузка…</p>
           ) : (
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
-              {!isNew && <ValidatedField name="id" required readOnly id="vehicle-id" label="ID" validate={{ required: true }} />}
+              {!isNew && <ValidatedField name="id" required readOnly id="vehicle-id" label="№" validate={{ required: true }} />}
               <ValidatedField
-                label="State Number"
+                label="Государственный номер"
                 id="vehicle-stateNumber"
                 name="stateNumber"
                 data-cy="stateNumber"
@@ -110,7 +111,7 @@ export const VehicleUpdate = () => {
                 }}
               />
               <ValidatedField
-                label="Model"
+                label="Модель"
                 id="vehicle-model"
                 name="model"
                 data-cy="model"
@@ -120,22 +121,22 @@ export const VehicleUpdate = () => {
                   maxLength: { value: 50, message: 'Это поле не может быть длинее, чем 50 символов.' },
                 }}
               />
-              <ValidatedField label="Vehicle Type" id="vehicle-vehicleType" name="vehicleType" data-cy="vehicleType" type="select">
+              <ValidatedField label="Тип ТС" id="vehicle-vehicleType" name="vehicleType" data-cy="vehicleType" type="select">
                 {vehicleTypeValues.map(vehicleType => (
                   <option value={vehicleType} key={vehicleType}>
-                    {vehicleType}
+                    {vehicleTypeRu(vehicleType)}
                   </option>
                 ))}
               </ValidatedField>
-              <ValidatedField label="Capacity" id="vehicle-capacity" name="capacity" data-cy="capacity" type="select">
+              <ValidatedField label="Класс вместимости" id="vehicle-capacity" name="capacity" data-cy="capacity" type="select">
                 {capacityTypeValues.map(capacityType => (
                   <option value={capacityType} key={capacityType}>
-                    {capacityType}
+                    {capacityTypeRu(capacityType)}
                   </option>
                 ))}
               </ValidatedField>
               <ValidatedField
-                label="Passenger Capacity"
+                label="Пассажировместимость"
                 id="vehicle-passengerCapacity"
                 name="passengerCapacity"
                 data-cy="passengerCapacity"
@@ -146,7 +147,7 @@ export const VehicleUpdate = () => {
                 }}
               />
               <ValidatedField
-                label="Year"
+                label="Год выпуска"
                 id="vehicle-year"
                 name="year"
                 data-cy="year"
@@ -157,7 +158,7 @@ export const VehicleUpdate = () => {
                 }}
               />
               <ValidatedField
-                label="Technical Status"
+                label="Техническое состояние"
                 id="vehicle-technicalStatus"
                 name="technicalStatus"
                 data-cy="technicalStatus"
@@ -165,12 +166,12 @@ export const VehicleUpdate = () => {
               >
                 {technicalStatusValues.map(technicalStatus => (
                   <option value={technicalStatus} key={technicalStatus}>
-                    {technicalStatus}
+                    {technicalStatusRu(technicalStatus)}
                   </option>
                 ))}
               </ValidatedField>
               <ValidatedField
-                label="Mileage"
+                label="Пробег"
                 id="vehicle-mileage"
                 name="mileage"
                 data-cy="mileage"

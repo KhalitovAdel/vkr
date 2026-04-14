@@ -43,7 +43,7 @@ export const RouteDeleteDialog = () => {
       <ModalHeader data-cy="routeDeleteDialogHeading" closeButton>
         Подтвердите операцию удаления
       </ModalHeader>
-      <ModalBody id="transportSystemApp.route.delete.question">Вы уверены что хотите удалить Route {routeEntity.id}?</ModalBody>
+      <ModalBody id="transportSystemApp.route.delete.question">Удалить маршрут № {routeEntity.id}?</ModalBody>
       <ModalFooter>
         <Button variant="secondary" onClick={handleClose}>
           <FontAwesomeIcon icon="ban" />

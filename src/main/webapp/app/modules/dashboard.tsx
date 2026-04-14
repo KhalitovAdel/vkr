@@ -75,7 +75,7 @@ const Dashboard = () => {
 
   return (
     <div className="container mt-3" data-cy="dashboardReady">
-      <h3>Dashboard</h3>
+      <h3>Панель мониторинга</h3>
       {!isCypressBrowser() && (
         <p className="text-muted small mb-2" data-cy="dashboardLiveRefreshNote">
           Псевдо‑режим реального времени: показатели ниже запрашиваются с сервера снова каждые {POLL_INTERVAL_MS / 1000} с (без WebSocket и

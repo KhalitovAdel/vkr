@@ -89,19 +89,19 @@ export const WaybillUpdate = () => {
       <Row className="justify-content-center">
         <Col md="8">
           <h2 id="transportSystemApp.waybill.home.createOrEditLabel" data-cy="WaybillCreateUpdateHeading">
-            Создать или отредактировать Waybill
+            Создание или редактирование путевого листа
           </h2>
         </Col>
       </Row>
       <Row className="justify-content-center">
         <Col md="8">
           {loading ? (
-            <p>Loading...</p>
+            <p>Загрузка…</p>
           ) : (
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
-              {!isNew && <ValidatedField name="id" required readOnly id="waybill-id" label="ID" validate={{ required: true }} />}
+              {!isNew && <ValidatedField name="id" required readOnly id="waybill-id" label="№" validate={{ required: true }} />}
               <ValidatedField
-                label="Document Number"
+                label="Номер документа"
                 id="waybill-documentNumber"
                 name="documentNumber"
                 data-cy="documentNumber"
@@ -112,32 +112,32 @@ export const WaybillUpdate = () => {
                 }}
               />
               <ValidatedField
-                label="Actual Departure"
+                label="Фактический выезд"
                 id="waybill-actualDeparture"
                 name="actualDeparture"
                 data-cy="actualDeparture"
                 type="datetime-local"
-                placeholder="YYYY-MM-DD HH:mm"
+                placeholder="ГГГГ-ММ-ДД чч:мм"
               />
               <ValidatedField
-                label="Actual Return"
+                label="Фактический возврат"
                 id="waybill-actualReturn"
                 name="actualReturn"
                 data-cy="actualReturn"
                 type="datetime-local"
-                placeholder="YYYY-MM-DD HH:mm"
+                placeholder="ГГГГ-ММ-ДД чч:мм"
               />
-              <ValidatedField label="Mileage Start" id="waybill-mileageStart" name="mileageStart" data-cy="mileageStart" type="text" />
-              <ValidatedField label="Mileage End" id="waybill-mileageEnd" name="mileageEnd" data-cy="mileageEnd" type="text" />
+              <ValidatedField label="Пробег на выезд" id="waybill-mileageStart" name="mileageStart" data-cy="mileageStart" type="text" />
+              <ValidatedField label="Пробег на возврат" id="waybill-mileageEnd" name="mileageEnd" data-cy="mileageEnd" type="text" />
               <ValidatedField
-                label="Fuel Consumption Plan"
+                label="Расход топлива (план)"
                 id="waybill-fuelConsumptionPlan"
                 name="fuelConsumptionPlan"
                 data-cy="fuelConsumptionPlan"
                 type="text"
               />
               <ValidatedField
-                label="Fuel Consumption Fact"
+                label="Расход топлива (факт)"
                 id="waybill-fuelConsumptionFact"
                 name="fuelConsumptionFact"
                 data-cy="fuelConsumptionFact"

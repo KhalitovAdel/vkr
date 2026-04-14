@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+import { tripStatusRu } from 'app/shared/util/enum-labels-ru';
+
 type TripRow = {
   id: number;
   departureTime: string;
@@ -24,7 +26,7 @@ const DriverSchedule = () => {
       <input
         className="form-control mb-2"
         type="number"
-        placeholder="Driver ID"
+        placeholder="Идентификатор водителя"
         data-cy="driverScheduleId"
         value={driverId}
         onChange={e => setDriverId(e.target.value)}
@@ -36,7 +38,7 @@ const DriverSchedule = () => {
       <ul data-cy="driverScheduleList">
         {items.map(item => (
           <li key={item.id} data-cy="driverScheduleRow">
-            #{item.id} {item.departureTime}-{item.arrivalTime} ({item.tripStatus})
+            #{item.id} {item.departureTime}-{item.arrivalTime} ({tripStatusRu(item.tripStatus)})
           </li>
         ))}
       </ul>

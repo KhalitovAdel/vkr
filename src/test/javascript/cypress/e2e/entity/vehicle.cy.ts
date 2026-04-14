@@ -21,7 +21,7 @@ describe('Vehicle e2e test', () => {
     vehicleType: 'BUS',
     capacity: 'SMALL',
     passengerCapacity: 24755,
-    year: 12512,
+    year: 2020,
     technicalStatus: 'REPAIR',
     mileage: 12162.89,
   };
@@ -187,8 +187,8 @@ describe('Vehicle e2e test', () => {
       cy.get(`[data-cy="passengerCapacity"]`).type('23949');
       cy.get(`[data-cy="passengerCapacity"]`).should('have.value', '23949');
 
-      cy.get(`[data-cy="year"]`).type('14176');
-      cy.get(`[data-cy="year"]`).should('have.value', '14176');
+      cy.get(`[data-cy="year"]`).type('2019');
+      cy.get(`[data-cy="year"]`).should('have.value', '2019');
 
       cy.get(`[data-cy="technicalStatus"]`).select('SCRAPPED');
 

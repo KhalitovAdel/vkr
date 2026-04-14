@@ -34,6 +34,11 @@ afterEach(function () {
   const currentTest = this.currentTest;
   if (!currentTest || currentTest.state !== 'passed') return;
 
+  const rel = Cypress.spec?.relative ?? '';
+  if (rel.includes('ui-test-cases.cy.ts') || rel.includes('vkr-entity-screenshots.cy.ts')) {
+    return;
+  }
+
   const spec = Cypress.spec?.name ?? 'spec';
   const titlePath =
     typeof currentTest.titlePath === 'function' ? currentTest.titlePath() : [currentTest.title ?? 'test'];

@@ -23,30 +23,30 @@ export const DriverDetail = () => {
   return (
     <Row>
       <Col md="8">
-        <h2 data-cy="driverDetailsHeading">Driver</h2>
+        <h2 data-cy="driverDetailsHeading">Водитель</h2>
         <dl className="jh-entity-details">
           <dt>
-            <span id="id">ID</span>
+            <span id="id">№</span>
           </dt>
           <dd>{driverEntity.id}</dd>
           <dt>
-            <span id="employeeNumber">Employee Number</span>
+            <span id="employeeNumber">Табельный номер</span>
           </dt>
           <dd>{driverEntity.employeeNumber}</dd>
           <dt>
-            <span id="fullName">Full Name</span>
+            <span id="fullName">ФИО</span>
           </dt>
           <dd>{driverEntity.fullName}</dd>
           <dt>
-            <span id="licenseCategory">License Category</span>
+            <span id="licenseCategory">Категория прав</span>
           </dt>
           <dd>{driverEntity.licenseCategory}</dd>
           <dt>
-            <span id="experience">Experience</span>
+            <span id="experience">Стаж (лет)</span>
           </dt>
           <dd>{driverEntity.experience}</dd>
           <dt>
-            <span id="hireDate">Hire Date</span>
+            <span id="hireDate">Дата приёма</span>
           </dt>
           <dd>{driverEntity.hireDate ? <TextFormat value={driverEntity.hireDate} type="date" format={APP_LOCAL_DATE_FORMAT} /> : null}</dd>
         </dl>

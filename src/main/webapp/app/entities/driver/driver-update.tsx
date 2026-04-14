@@ -72,19 +72,19 @@ export const DriverUpdate = () => {
       <Row className="justify-content-center">
         <Col md="8">
           <h2 id="transportSystemApp.driver.home.createOrEditLabel" data-cy="DriverCreateUpdateHeading">
-            Создать или отредактировать Driver
+            Создание или редактирование водителя
           </h2>
         </Col>
       </Row>
       <Row className="justify-content-center">
         <Col md="8">
           {loading ? (
-            <p>Loading...</p>
+            <p>Загрузка…</p>
           ) : (
             <ValidatedForm defaultValues={defaultValues()} onSubmit={saveEntity}>
-              {!isNew && <ValidatedField name="id" required readOnly id="driver-id" label="ID" validate={{ required: true }} />}
+              {!isNew && <ValidatedField name="id" required readOnly id="driver-id" label="№" validate={{ required: true }} />}
               <ValidatedField
-                label="Employee Number"
+                label="Табельный номер"
                 id="driver-employeeNumber"
                 name="employeeNumber"
                 data-cy="employeeNumber"
@@ -95,7 +95,7 @@ export const DriverUpdate = () => {
                 }}
               />
               <ValidatedField
-                label="Full Name"
+                label="ФИО"
                 id="driver-fullName"
                 name="fullName"
                 data-cy="fullName"
@@ -106,7 +106,7 @@ export const DriverUpdate = () => {
                 }}
               />
               <ValidatedField
-                label="License Category"
+                label="Категория прав"
                 id="driver-licenseCategory"
                 name="licenseCategory"
                 data-cy="licenseCategory"
@@ -117,7 +117,7 @@ export const DriverUpdate = () => {
                 }}
               />
               <ValidatedField
-                label="Experience"
+                label="Стаж (лет)"
                 id="driver-experience"
                 name="experience"
                 data-cy="experience"
@@ -128,7 +128,7 @@ export const DriverUpdate = () => {
                 }}
               />
               <ValidatedField
-                label="Hire Date"
+                label="Дата приёма"
                 id="driver-hireDate"
                 name="hireDate"
                 data-cy="hireDate"
