@@ -1,0 +1,40 @@
+# Список путей относительно корня репозитория (порядок = порядок в выгрузке).
+# Точка входа — в начале (короткий файл). Далее: перечисления, логика, REST, клиент, Trip.
+# Дашборд не включён (крупный); отчёты — в ReportResource и API на клиенте.
+# Строки с # и пустые игнорируются.
+
+src/main/java/com/transport/system/TransportSystemApp.java
+
+# Перечисления
+src/main/java/com/transport/system/domain/enumeration/TripStatus.java
+src/main/java/com/transport/system/domain/enumeration/TechnicalStatus.java
+src/main/java/com/transport/system/domain/enumeration/EventType.java
+
+# Валидация пересечений рейсов
+src/main/java/com/transport/system/service/validation/NoOverlapConstraint.java
+src/main/java/com/transport/system/service/validation/NoOverlapConstraintValidator.java
+
+# Репозитории
+src/main/java/com/transport/system/repository/TripRepository.java
+src/main/java/com/transport/system/repository/WaybillRepository.java
+src/main/java/com/transport/system/repository/VehicleRepository.java
+
+# Сервисы
+src/main/java/com/transport/system/service/TripOverlapQueryService.java
+src/main/java/com/transport/system/service/VehicleService.java
+src/main/java/com/transport/system/service/TripService.java
+src/main/java/com/transport/system/service/WaybillService.java
+
+# REST: рейсы, путевые листы, отчёты
+src/main/java/com/transport/system/web/rest/TripResource.java
+src/main/java/com/transport/system/web/rest/WaybillResource.java
+src/main/java/com/transport/system/web/rest/ReportResource.java
+
+# Клиент: навигация, подбор ТС, редьюсер рейсов
+src/main/webapp/app/routes.tsx
+src/main/webapp/app/entities/routes.tsx
+src/main/webapp/app/entities/trip/trip-suggestion.tsx
+src/main/webapp/app/entities/trip/trip.reducer.ts
+
+# Ключевая сущность рейса (JPA)
+src/main/java/com/transport/system/domain/Trip.java
