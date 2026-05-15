@@ -5,7 +5,8 @@ services:
     image: transportsystem
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
-      - SPRING_PROFILES_ACTIVE=prod,api-docs
+      # secret-samples supplies jhipster.security.authentication.jwt.base64-secret (required for prod); replace with real secrets in production
+      - SPRING_PROFILES_ACTIVE=prod,api-docs,secret-samples
       - MANAGEMENT_PROMETHEUS_METRICS_EXPORT_ENABLED=true
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/transportSystem
       - SPRING_DATASOURCE_USERNAME=transportSystem

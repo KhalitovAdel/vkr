@@ -95,9 +95,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
     expect(response?.statusCode).to.eq(400);
     const raw = JSON.stringify(response?.body ?? {});
     expect(
-      /пересечение|водител|ремонте|пригородных|стажем|constraint|fielderror|error\.validation|not valid|наруш|bad request/i.test(
-        raw,
-      ),
+      /пересечение|водител|ремонте|пригородных|стажем|constraint|fielderror|error\.validation|not valid|наруш|bad request/i.test(raw),
       raw.slice(0, 900),
     ).to.eq(true);
   }
@@ -120,25 +118,29 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
     seedTracker = emptyIds();
     const suffix = Date.now().toString().slice(-8);
     cy.authenticatedRequest({ method: 'POST', url: '/api/routes', body: routeCityBody(suffix) }).then(({ body: route }) => {
-      seedTracker!.routeIds.push(route.id);
+      seedTracker.routeIds.push(route.id);
       // Минимальная вместимость повышает шанс, что победит именно это ТС (алгоритм — min по passengerCapacity).
-      cy.authenticatedRequest({ method: 'POST', url: '/api/vehicles', body: vehicleBody(suffix, { passengerCapacity: 1 }) }).then(({ body: vehicle }) => {
-        seedTracker!.vehicleIds.push(vehicle.id);
-        cy.intercept('POST', '/api/trips/suggest-vehicle').as('suggestVehicle');
-        cy.visit('/trip/suggestion');
-        waitAuthenticatedShell();
-        fillTripSuggestionForm(route.id, TEST_DATE, '09:30');
-        cy.contains('h4', 'Подбор транспортного средства').closest('.container').within(() => {
-          cy.contains('button', 'Подобрать').click();
-        });
-        cy.wait('@suggestVehicle', { timeout: 20000 }).then(({ response }) => {
-          expect(response?.statusCode, JSON.stringify(response?.body)).to.eq(200);
-          const sn = response?.body?.stateNumber as string;
-          expect(sn, 'suggest-vehicle should return stateNumber').to.be.a('string').and.not.be.empty;
-          cy.get('.alert-success').should('be.visible').and('contain', sn);
-          vkrScreenshot('Case-02-suggest-vehicle-success');
-        });
-      });
+      cy.authenticatedRequest({ method: 'POST', url: '/api/vehicles', body: vehicleBody(suffix, { passengerCapacity: 1 }) }).then(
+        ({ body: vehicle }) => {
+          seedTracker.vehicleIds.push(vehicle.id);
+          cy.intercept('POST', '/api/trips/suggest-vehicle').as('suggestVehicle');
+          cy.visit('/trip/suggestion');
+          waitAuthenticatedShell();
+          fillTripSuggestionForm(route.id, TEST_DATE, '09:30');
+          cy.contains('h4', 'Подбор транспортного средства')
+            .closest('.container')
+            .within(() => {
+              cy.contains('button', 'Подобрать').click();
+            });
+          cy.wait('@suggestVehicle', { timeout: 20000 }).then(({ response }) => {
+            expect(response?.statusCode, JSON.stringify(response?.body)).to.eq(200);
+            const sn = response?.body?.stateNumber as string;
+            expect(sn, 'suggest-vehicle should return stateNumber').to.be.a('string').and.not.be.empty;
+            cy.get('.alert-success').should('be.visible').and('contain', sn);
+            vkrScreenshot('Case-02-suggest-vehicle-success');
+          });
+        },
+      );
     });
   });
 
@@ -146,19 +148,19 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
     seedTracker = emptyIds();
     const suffix = `${Date.now()}`.slice(-7);
     cy.authenticatedRequest({ method: 'POST', url: '/api/routes', body: routeCityBody(suffix) }).then(({ body: route }) => {
-      seedTracker!.routeIds.push(route.id);
+      seedTracker.routeIds.push(route.id);
       cy.authenticatedRequest({
         method: 'POST',
         url: '/api/vehicles',
         body: vehicleBody(`${suffix}A`, { passengerCapacity: 80 }),
       }).then(({ body: busyVehicle }) => {
-        seedTracker!.vehicleIds.push(busyVehicle.id);
+        seedTracker.vehicleIds.push(busyVehicle.id);
         cy.authenticatedRequest({
           method: 'POST',
           url: '/api/vehicles',
           body: vehicleBody(`${suffix}B`, { passengerCapacity: 2 }),
         }).then(({ body: freeVehicle }) => {
-          seedTracker!.vehicleIds.push(freeVehicle.id);
+          seedTracker.vehicleIds.push(freeVehicle.id);
           cy.authenticatedRequest({
             method: 'POST',
             url: '/api/trips',
@@ -170,14 +172,16 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
               routeId: route.id,
             }),
           }).then(({ body: trip }) => {
-            seedTracker!.tripIds.push(trip.id);
+            seedTracker.tripIds.push(trip.id);
             cy.intercept('POST', '/api/trips/suggest-vehicle').as('suggestVehicle3');
             cy.visit('/trip/suggestion');
             waitAuthenticatedShell();
             fillTripSuggestionForm(route.id, TEST_DATE, '10:30');
-            cy.contains('h4', 'Подбор транспортного средства').closest('.container').within(() => {
-              cy.contains('button', 'Подобрать').click();
-            });
+            cy.contains('h4', 'Подбор транспортного средства')
+              .closest('.container')
+              .within(() => {
+                cy.contains('button', 'Подобрать').click();
+              });
             cy.wait('@suggestVehicle3', { timeout: 20000 }).then(({ response }) => {
               expect(response?.statusCode, JSON.stringify(response?.body)).to.eq(200);
               expect(response?.body?.id, 'занятое ТС не должно попасть в подбор').to.not.eq(busyVehicle.id);
@@ -196,13 +200,13 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
     seedTracker = emptyIds();
     const suffix = Date.now().toString().slice(-8);
     cy.authenticatedRequest({ method: 'POST', url: '/api/routes', body: routeCityBody(suffix) }).then(({ body: route }) => {
-      seedTracker!.routeIds.push(route.id);
+      seedTracker.routeIds.push(route.id);
       cy.authenticatedRequest({ method: 'POST', url: '/api/vehicles', body: vehicleBody(`${suffix}a`) }).then(({ body: v1 }) => {
-        seedTracker!.vehicleIds.push(v1.id);
+        seedTracker.vehicleIds.push(v1.id);
         cy.authenticatedRequest({ method: 'POST', url: '/api/vehicles', body: vehicleBody(`${suffix}b`) }).then(({ body: v2 }) => {
-          seedTracker!.vehicleIds.push(v2.id);
+          seedTracker.vehicleIds.push(v2.id);
           cy.authenticatedRequest({ method: 'POST', url: '/api/drivers', body: driverBody(suffix, 5) }).then(({ body: driver }) => {
-            seedTracker!.driverIds.push(driver.id);
+            seedTracker.driverIds.push(driver.id);
             cy.authenticatedRequest({
               method: 'POST',
               url: '/api/trips',
@@ -215,7 +219,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
                 routeId: route.id,
               }),
             }).then(({ body: t1 }) => {
-              seedTracker!.tripIds.push(t1.id);
+              seedTracker.tripIds.push(t1.id);
               cy.intercept('POST', '/api/trips').as('postTrip');
               cy.visit('/trip/new');
               waitAuthenticatedShell();
@@ -227,7 +231,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
               cy.get('[data-cy="route"]').select(String(route.id));
               cy.get(entityCreateSaveButtonSelector).click();
               cy.wait('@postTrip').then(({ response }) => {
-                expectTripCreateRejected(response!);
+                expectTripCreateRejected(response);
                 vkrScreenshot('Case-04-trip-driver-overlap-400');
               });
             });
@@ -254,13 +258,13 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
     seedTracker = emptyIds();
     const suffix = Date.now().toString().slice(-8);
     cy.authenticatedRequest({ method: 'POST', url: '/api/routes', body: routeCityBody(suffix) }).then(({ body: route }) => {
-      seedTracker!.routeIds.push(route.id);
+      seedTracker.routeIds.push(route.id);
       cy.authenticatedRequest({
         method: 'POST',
         url: '/api/vehicles',
         body: vehicleBody(suffix, { technicalStatus: 'OPERATIONAL' }),
       }).then(({ body: vehicle }) => {
-        seedTracker!.vehicleIds.push(vehicle.id);
+        seedTracker.vehicleIds.push(vehicle.id);
         cy.intercept('PUT', '/api/vehicles/*').as('putVehicleRepair');
         cy.visit(`/vehicle/${vehicle.id}/edit`);
         waitAuthenticatedShell();
@@ -277,7 +281,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
         cy.get('[data-cy="route"]').select(String(route.id));
         cy.get(entityCreateSaveButtonSelector).click();
         cy.wait('@postTrip').then(({ response }) => {
-          expectTripCreateRejected(response!);
+          expectTripCreateRejected(response);
           vkrScreenshot('Case-06-vehicle-repair-trip-400');
         });
       });
@@ -289,9 +293,9 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
     const suffix = Date.now().toString().slice(-8);
     const emp = `U${suffix}`.slice(0, 10);
     cy.authenticatedRequest({ method: 'POST', url: '/api/routes', body: routeSuburbBody(suffix) }).then(({ body: route }) => {
-      seedTracker!.routeIds.push(route.id);
+      seedTracker.routeIds.push(route.id);
       cy.authenticatedRequest({ method: 'POST', url: '/api/vehicles', body: vehicleBody(suffix) }).then(({ body: vehicle }) => {
-        seedTracker!.vehicleIds.push(vehicle.id);
+        seedTracker.vehicleIds.push(vehicle.id);
         cy.intercept('POST', '/api/drivers').as('postDriverUi');
         cy.visit('/driver/new');
         waitAuthenticatedShell();
@@ -303,8 +307,8 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
         cy.get(entityCreateSaveButtonSelector).click();
         cy.wait('@postDriverUi').then(({ response }) => {
           expect(response?.statusCode).to.eq(201);
-          const driverId = response!.body.id as number;
-          seedTracker!.driverIds.push(driverId);
+          const driverId = response.body.id as number;
+          seedTracker.driverIds.push(driverId);
           cy.intercept('POST', '/api/trips').as('postTrip');
           cy.visit('/trip/new');
           waitAuthenticatedShell();
@@ -316,7 +320,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
           cy.get('[data-cy="route"]').select(String(route.id));
           cy.get(entityCreateSaveButtonSelector).click();
           cy.wait('@postTrip').then(({ response: r2 }) => {
-            expectTripCreateRejected(r2!);
+            expectTripCreateRejected(r2);
             expect(JSON.stringify(r2?.body ?? '')).to.match(/пригородных|стаж|constraint|validation|not valid|bad request/i);
             vkrScreenshot('Case-07-driver-experience-suburb-400');
           });
@@ -329,9 +333,9 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
     seedTracker = emptyIds();
     const suffix = Date.now().toString().slice(-8);
     cy.authenticatedRequest({ method: 'POST', url: '/api/routes', body: routeCityBody(suffix) }).then(({ body: route }) => {
-      seedTracker!.routeIds.push(route.id);
+      seedTracker.routeIds.push(route.id);
       cy.authenticatedRequest({ method: 'POST', url: '/api/vehicles', body: vehicleBody(suffix) }).then(({ body: vehicle }) => {
-        seedTracker!.vehicleIds.push(vehicle.id);
+        seedTracker.vehicleIds.push(vehicle.id);
         cy.authenticatedRequest({
           method: 'POST',
           url: '/api/trips',
@@ -343,7 +347,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
             routeId: route.id,
           }),
         }).then(({ body: t1 }) => {
-          seedTracker!.tripIds.push(t1.id);
+          seedTracker.tripIds.push(t1.id);
           cy.intercept('POST', '/api/trips').as('postTrip');
           cy.visit('/trip/new');
           waitAuthenticatedShell();
@@ -354,8 +358,10 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
           cy.get('[data-cy="route"]').select(String(route.id));
           cy.get(entityCreateSaveButtonSelector).click();
           cy.wait('@postTrip').then(({ response }) => {
-            expectTripCreateRejected(response!);
-            expect(JSON.stringify(response?.body ?? '')).to.match(/пересечение|тс|водител|занят|constraint|validation|not valid|bad request/i);
+            expectTripCreateRejected(response);
+            expect(JSON.stringify(response?.body ?? '')).to.match(
+              /пересечение|тс|водител|занят|constraint|validation|not valid|bad request/i,
+            );
             vkrScreenshot('Case-08-trip-vehicle-overlap-400');
           });
         });
@@ -367,11 +373,11 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
     seedTracker = emptyIds();
     const suffix = Date.now().toString().slice(-8);
     cy.authenticatedRequest({ method: 'POST', url: '/api/routes', body: routeCityBody(suffix) }).then(({ body: route }) => {
-      seedTracker!.routeIds.push(route.id);
+      seedTracker.routeIds.push(route.id);
       cy.authenticatedRequest({ method: 'POST', url: '/api/vehicles', body: vehicleBody(suffix) }).then(({ body: vehicle }) => {
-        seedTracker!.vehicleIds.push(vehicle.id);
+        seedTracker.vehicleIds.push(vehicle.id);
         cy.authenticatedRequest({ method: 'POST', url: '/api/waybills', body: waybillBody(suffix) }).then(({ body: wb }) => {
-          seedTracker!.waybillIds.push(wb.id);
+          seedTracker.waybillIds.push(wb.id);
           cy.authenticatedRequest({
             method: 'POST',
             url: '/api/trips',
@@ -385,7 +391,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
               tripStatus: 'SCHEDULED',
             }),
           }).then(({ body: trip }) => {
-            seedTracker!.tripIds.push(trip.id);
+            seedTracker.tripIds.push(trip.id);
             cy.intercept('PUT', '/api/waybills/*').as('putWaybill');
             cy.visit(`/waybill/${wb.id}/edit`);
             waitAuthenticatedShell();
@@ -399,7 +405,9 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
               method: 'POST',
               url: `/api/waybills/${wb.id}/departure`,
               body: { eventTime: '2030-06-15T08:00:00.000Z', mileage: 100 },
-            }).its('status').should('eq', 200);
+            })
+              .its('status')
+              .should('eq', 200);
             cy.authenticatedRequest({ url: `/api/trips/${trip.id}` }).then(({ body: t }) => {
               expect(t.tripStatus).to.eq('ONGOING');
             });
@@ -417,11 +425,11 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
     seedTracker = emptyIds();
     const suffix = Date.now().toString().slice(-8);
     cy.authenticatedRequest({ method: 'POST', url: '/api/routes', body: routeCityBody(suffix) }).then(({ body: route }) => {
-      seedTracker!.routeIds.push(route.id);
+      seedTracker.routeIds.push(route.id);
       cy.authenticatedRequest({ method: 'POST', url: '/api/vehicles', body: vehicleBody(suffix) }).then(({ body: vehicle }) => {
-        seedTracker!.vehicleIds.push(vehicle.id);
+        seedTracker.vehicleIds.push(vehicle.id);
         cy.authenticatedRequest({ method: 'POST', url: '/api/waybills', body: waybillBody(suffix) }).then(({ body: wb }) => {
-          seedTracker!.waybillIds.push(wb.id);
+          seedTracker.waybillIds.push(wb.id);
           cy.authenticatedRequest({
             method: 'POST',
             url: '/api/trips',
@@ -435,12 +443,14 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
               tripStatus: 'SCHEDULED',
             }),
           }).then(({ body: trip }) => {
-            seedTracker!.tripIds.push(trip.id);
+            seedTracker.tripIds.push(trip.id);
             cy.authenticatedRequest({
               method: 'POST',
               url: `/api/waybills/${wb.id}/departure`,
               body: { eventTime: '2030-06-15T08:00:00.000Z', mileage: 100 },
-            }).its('status').should('eq', 200);
+            })
+              .its('status')
+              .should('eq', 200);
             cy.intercept('PUT', '/api/waybills/*').as('putWaybill10');
             cy.visit(`/waybill/${wb.id}/edit`);
             waitAuthenticatedShell();
@@ -453,7 +463,9 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
               method: 'POST',
               url: `/api/waybills/${wb.id}/return`,
               body: { eventTime: '2030-06-15T18:00:00.000Z', mileage: 250 },
-            }).its('status').should('eq', 200);
+            })
+              .its('status')
+              .should('eq', 200);
             cy.authenticatedRequest({ url: `/api/trips/${trip.id}` }).then(({ body: t }) => {
               expect(t.tripStatus).to.eq('COMPLETED');
             });
@@ -471,7 +483,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
     seedTracker = emptyIds();
     const suffix = Date.now().toString().slice(-8);
     cy.authenticatedRequest({ method: 'POST', url: '/api/waybills', body: waybillBody(suffix) }).then(({ body: wb }) => {
-      seedTracker!.waybillIds.push(wb.id);
+      seedTracker.waybillIds.push(wb.id);
       cy.intercept('PUT', '/api/waybills/*').as('putWaybill');
       cy.visit(`/waybill/${wb.id}/edit`);
       waitAuthenticatedShell();
@@ -487,7 +499,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
     seedTracker = emptyIds();
     const suffix = Date.now().toString().slice(-8);
     cy.authenticatedRequest({ method: 'POST', url: '/api/waybills', body: waybillBody(suffix) }).then(({ body: wb }) => {
-      seedTracker!.waybillIds.push(wb.id);
+      seedTracker.waybillIds.push(wb.id);
       cy.intercept('PUT', '/api/waybills/*').as('putWaybill');
       cy.visit(`/waybill/${wb.id}/edit`);
       waitAuthenticatedShell();
@@ -523,9 +535,9 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
     seedTracker = emptyIds();
     const suffix = Date.now().toString().slice(-8);
     cy.authenticatedRequest({ method: 'POST', url: '/api/routes', body: routeCityBody(suffix) }).then(({ body: route }) => {
-      seedTracker!.routeIds.push(route.id);
+      seedTracker.routeIds.push(route.id);
       cy.authenticatedRequest({ method: 'POST', url: '/api/vehicles', body: vehicleBody(suffix) }).then(({ body: vehicle }) => {
-        seedTracker!.vehicleIds.push(vehicle.id);
+        seedTracker.vehicleIds.push(vehicle.id);
         cy.authenticatedRequest({
           method: 'POST',
           url: '/api/trips',
@@ -538,7 +550,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
             tripStatus: 'SCHEDULED',
           }),
         }).then(({ body: trip }) => {
-          seedTracker!.tripIds.push(trip.id);
+          seedTracker.tripIds.push(trip.id);
           cy.visit('/trip/by-date');
           waitAuthenticatedShell();
           cy.contains('h4', 'Рейсы по дате')
@@ -558,11 +570,11 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
     seedTracker = emptyIds();
     const suffix = Date.now().toString().slice(-8);
     cy.authenticatedRequest({ method: 'POST', url: '/api/routes', body: routeCityBody(suffix) }).then(({ body: route }) => {
-      seedTracker!.routeIds.push(route.id);
+      seedTracker.routeIds.push(route.id);
       cy.authenticatedRequest({ method: 'POST', url: '/api/vehicles', body: vehicleBody(suffix) }).then(({ body: vehicle }) => {
-        seedTracker!.vehicleIds.push(vehicle.id);
+        seedTracker.vehicleIds.push(vehicle.id);
         cy.authenticatedRequest({ method: 'POST', url: '/api/drivers', body: driverBody(suffix, 5) }).then(({ body: driver }) => {
-          seedTracker!.driverIds.push(driver.id);
+          seedTracker.driverIds.push(driver.id);
           cy.authenticatedRequest({
             method: 'POST',
             url: '/api/trips',
@@ -575,7 +587,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
               routeId: route.id,
             }),
           }).then(({ body: trip }) => {
-            seedTracker!.tripIds.push(trip.id);
+            seedTracker.tripIds.push(trip.id);
             cy.visit('/vehicle/schedule');
             waitAuthenticatedShell();
             cy.contains('h4', 'Расписание ТС')
@@ -624,8 +636,8 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
     cy.wait('@postVehicle').then(({ response }) => {
       expect(response?.statusCode).to.eq(201);
       expect(response?.body.year).to.eq(2019);
-      const vid = response!.body.id as number;
-      seedTracker!.vehicleIds.push(vid);
+      const vid = response.body.id as number;
+      seedTracker.vehicleIds.push(vid);
       cy.visit(`/vehicle/${vid}`);
       waitAuthenticatedShell();
       cy.get('[data-cy="vehicleDetailsHeading"]').should('be.visible');

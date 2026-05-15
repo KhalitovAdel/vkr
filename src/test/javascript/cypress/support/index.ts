@@ -40,8 +40,7 @@ afterEach(function () {
   }
 
   const spec = Cypress.spec?.name ?? 'spec';
-  const titlePath =
-    typeof currentTest.titlePath === 'function' ? currentTest.titlePath() : [currentTest.title ?? 'test'];
+  const titlePath = typeof currentTest.titlePath === 'function' ? currentTest.titlePath() : [currentTest.title ?? 'test'];
 
   const name = toSafeScreenshotName([spec, ...titlePath].join(' -- '));
   // In `cypress run` (headless), `runner` capture may be unavailable — use viewport to always produce files.

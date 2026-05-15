@@ -6,9 +6,7 @@ import { Col, Row } from 'react-bootstrap';
 const Footer = () => (
   <div className="footer page-content">
     <Row>
-      <Col md="12">
-        <p>Это ваш футтер</p>
-      </Col>
+      <Col md="12"></Col>
     </Row>
   </div>
 );
