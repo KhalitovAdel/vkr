@@ -15,7 +15,7 @@ const root = path.join(__dirname, '..');
 const INTRO_HTML = `
 <p style="text-align:center"><strong>Проектирование и разработка информационной системы по подбору и учёту работы городского пассажирского транспорта</strong></p>
 <p style="text-align:center"><strong>Выпускная квалификационная работа</strong></p>
-<p style="text-align:center">Студент: Халитов А. М., группа ДЗПИж-205<br/>
+<p style="text-align:center">Студент: Халитов А. М., группа ДЗПИж-210<br/>
 Руководитель: Федоров И. А.<br/>
 Университет управления «ТИСБИ», 2026</p>
 <p><strong>Пользовательский интерфейс</strong></p>
