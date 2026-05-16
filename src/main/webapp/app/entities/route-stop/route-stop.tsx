@@ -10,6 +10,8 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { overrideSortStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { ASC, DESC } from 'app/shared/util/pagination.constants';
 
+import { formatRouteLabel, formatStopLabel } from 'app/shared/util/entity-labels';
+
 import { getEntities } from './route-stop.reducer';
 
 export const RouteStop = () => {
@@ -111,8 +113,8 @@ export const RouteStop = () => {
                   </td>
                   <td>{routeStop.stopOrder}</td>
                   <td>{routeStop.distanceFromPrev}</td>
-                  <td>{routeStop.route ? <Link to={`/route/${routeStop.route.id}`}>{routeStop.route.id}</Link> : ''}</td>
-                  <td>{routeStop.stop ? <Link to={`/stop/${routeStop.stop.id}`}>{routeStop.stop.id}</Link> : ''}</td>
+                  <td>{routeStop.route ? <Link to={`/route/${routeStop.route.id}`}>{formatRouteLabel(routeStop.route)}</Link> : ''}</td>
+                  <td>{routeStop.stop ? <Link to={`/stop/${routeStop.stop.id}`}>{formatStopLabel(routeStop.stop)}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button as={Link as any} to={`/route-stop/${routeStop.id}`} variant="info" size="sm" data-cy="entityDetailsButton">

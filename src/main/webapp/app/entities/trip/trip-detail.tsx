@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { formatDriverLabel, formatRouteLabel, formatVehicleLabel, formatWaybillLabel } from 'app/shared/util/entity-labels';
 import { tripStatusRu } from 'app/shared/util/enum-labels-ru';
 
 import { getEntity } from './trip.reducer';
@@ -48,13 +49,17 @@ export const TripDetail = () => {
           </dt>
           <dd>{tripStatusRu(tripEntity.tripStatus)}</dd>
           <dt>Путевой лист</dt>
-          <dd>{tripEntity.waybill ? tripEntity.waybill.id : ''}</dd>
+          <dd>
+            {tripEntity.waybill ? <Link to={`/waybill/${tripEntity.waybill.id}`}>{formatWaybillLabel(tripEntity.waybill)}</Link> : ''}
+          </dd>
           <dt>ТС</dt>
-          <dd>{tripEntity.vehicle ? tripEntity.vehicle.id : ''}</dd>
+          <dd>
+            {tripEntity.vehicle ? <Link to={`/vehicle/${tripEntity.vehicle.id}`}>{formatVehicleLabel(tripEntity.vehicle)}</Link> : ''}
+          </dd>
           <dt>Водитель</dt>
-          <dd>{tripEntity.driver ? tripEntity.driver.id : ''}</dd>
+          <dd>{tripEntity.driver ? <Link to={`/driver/${tripEntity.driver.id}`}>{formatDriverLabel(tripEntity.driver)}</Link> : ''}</dd>
           <dt>Маршрут</dt>
-          <dd>{tripEntity.route ? tripEntity.route.id : ''}</dd>
+          <dd>{tripEntity.route ? <Link to={`/route/${tripEntity.route.id}`}>{formatRouteLabel(tripEntity.route)}</Link> : ''}</dd>
         </dl>
         <Button as={Link as any} to="/trip" replace variant="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Назад</span>

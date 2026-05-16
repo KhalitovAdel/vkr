@@ -10,6 +10,7 @@ import { getEntities as getTrips } from 'app/entities/trip/trip.reducer';
 import { getEntities as getVehicles } from 'app/entities/vehicle/vehicle.reducer';
 import { EventType } from 'app/shared/model/enumerations/event-type.model';
 import { convertDateTimeFromServer, convertDateTimeToServer, displayDefaultDateTime } from 'app/shared/util/date-utils';
+import { formatTripLabel, formatVehicleLabel } from 'app/shared/util/entity-labels';
 import { eventTypeRu } from 'app/shared/util/enum-labels-ru';
 
 import { createEntity, getEntity, reset, updateEntity } from './event.reducer';
@@ -124,7 +125,7 @@ export const EventUpdate = () => {
                 {trips
                   ? trips.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {formatTripLabel(otherEntity)}
                       </option>
                     ))
                   : null}
@@ -134,7 +135,7 @@ export const EventUpdate = () => {
                 {vehicles
                   ? vehicles.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {formatVehicleLabel(otherEntity)}
                       </option>
                     ))
                   : null}

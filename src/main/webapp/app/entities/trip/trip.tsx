@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { overrideSortStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { ASC, DESC } from 'app/shared/util/pagination.constants';
 
+import { formatDriverLabel, formatRouteLabel, formatVehicleLabel, formatWaybillLabel } from 'app/shared/util/entity-labels';
 import { tripStatusRu } from 'app/shared/util/enum-labels-ru';
 
 import { getEntities } from './trip.reducer';
@@ -128,10 +129,10 @@ export const Trip = () => {
                   <td>{trip.arrivalTime}</td>
                   <td>{trip.tripDate ? <TextFormat type="date" value={trip.tripDate} format={APP_LOCAL_DATE_FORMAT} /> : null}</td>
                   <td>{tripStatusRu(trip.tripStatus)}</td>
-                  <td>{trip.waybill ? <Link to={`/waybill/${trip.waybill.id}`}>{trip.waybill.id}</Link> : ''}</td>
-                  <td>{trip.vehicle ? <Link to={`/vehicle/${trip.vehicle.id}`}>{trip.vehicle.id}</Link> : ''}</td>
-                  <td>{trip.driver ? <Link to={`/driver/${trip.driver.id}`}>{trip.driver.id}</Link> : ''}</td>
-                  <td>{trip.route ? <Link to={`/route/${trip.route.id}`}>{trip.route.id}</Link> : ''}</td>
+                  <td>{trip.waybill ? <Link to={`/waybill/${trip.waybill.id}`}>{formatWaybillLabel(trip.waybill)}</Link> : ''}</td>
+                  <td>{trip.vehicle ? <Link to={`/vehicle/${trip.vehicle.id}`}>{formatVehicleLabel(trip.vehicle)}</Link> : ''}</td>
+                  <td>{trip.driver ? <Link to={`/driver/${trip.driver.id}`}>{formatDriverLabel(trip.driver)}</Link> : ''}</td>
+                  <td>{trip.route ? <Link to={`/route/${trip.route.id}`}>{formatRouteLabel(trip.route)}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button as={Link as any} to={`/trip/${trip.id}`} variant="info" size="sm" data-cy="entityDetailsButton">

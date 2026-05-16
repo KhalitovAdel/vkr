@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+
+import { useAppDispatch, useAppSelector } from 'app/config/store';
+import { getEntities as getRoutes } from 'app/entities/route/route.reducer';
+import { formatRouteLabel } from 'app/shared/util/entity-labels';
 
 type SuggestedVehicle = {
   id: number;
@@ -15,21 +19,42 @@ type TripSuggestionRequest = {
 };
 
 const TripSuggestion = () => {
-  const [form, setForm] = useState<TripSuggestionRequest>({ routeId: 0, tripDate: '', departureTime: '' });
+  const dispatch = useAppDispatch();
+  const routes = useAppSelector(state => state.route.entities);
+  const routesLoading = useAppSelector(state => state.route.loading);
+
+  const [form, setForm] = useState<Omit<TripSuggestionRequest, 'routeId'> & { routeId: number | '' }>({
+    routeId: '',
+    tripDate: '',
+    departureTime: '',
+  });
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<SuggestedVehicle | null>(null);
   const [notFound, setNotFound] = useState(false);
 
-  const handleChange = (key: keyof TripSuggestionRequest, value: string | number) => {
+  useEffect(() => {
+    dispatch(getRoutes({}));
+  }, [dispatch]);
+
+  const handleChange = (key: keyof typeof form, value: string | number) => {
     setForm(prev => ({ ...prev, [key]: value }));
   };
 
   const suggestVehicle = async () => {
+    if (!form.routeId) {
+      return;
+    }
+
     setLoading(true);
     setResult(null);
     setNotFound(false);
+    const payload: TripSuggestionRequest = {
+      routeId: form.routeId,
+      tripDate: form.tripDate,
+      departureTime: form.departureTime,
+    };
     try {
-      const response = await axios.post<SuggestedVehicle>('/api/trips/suggest-vehicle', form);
+      const response = await axios.post<SuggestedVehicle>('/api/trips/suggest-vehicle', payload);
       if (response.status === 204 || !response.data) {
         setNotFound(true);
       } else {
@@ -46,14 +71,24 @@ const TripSuggestion = () => {
     <div className="container mt-3">
       <h4>Подбор транспортного средства</h4>
       <div className="mb-2">
-        <label className="form-label">ID маршрута</label>
-        <input
-          className="form-control"
-          type="number"
+        <label className="form-label" htmlFor="suggestionRouteId">
+          Маршрут
+        </label>
+        <select
+          id="suggestionRouteId"
+          className="form-select"
           data-cy="suggestionRouteId"
           value={form.routeId}
-          onChange={e => handleChange('routeId', Number(e.target.value))}
-        />
+          onChange={e => handleChange('routeId', e.target.value ? Number(e.target.value) : '')}
+          disabled={routesLoading}
+        >
+          <option value="">{routesLoading ? 'Загрузка маршрутов...' : 'Выберите маршрут'}</option>
+          {routes.map(route => (
+            <option value={route.id} key={route.id}>
+              {formatRouteLabel(route)}
+            </option>
+          ))}
+        </select>
       </div>
       <div className="mb-2">
         <label className="form-label">Дата рейса</label>
@@ -75,7 +110,13 @@ const TripSuggestion = () => {
           onChange={e => handleChange('departureTime', e.target.value)}
         />
       </div>
-      <button type="button" className="btn btn-primary" data-cy="suggestionSubmit" onClick={suggestVehicle} disabled={loading}>
+      <button
+        type="button"
+        className="btn btn-primary"
+        data-cy="suggestionSubmit"
+        onClick={suggestVehicle}
+        disabled={loading || !form.routeId || !form.tripDate || !form.departureTime}
+      >
         {loading ? 'Подбор...' : 'Подобрать ТС'}
       </button>
 

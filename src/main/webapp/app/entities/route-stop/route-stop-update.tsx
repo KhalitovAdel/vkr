@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getEntities as getRoutes } from 'app/entities/route/route.reducer';
 import { getEntities as getStops } from 'app/entities/stop/stop.reducer';
+import { formatRouteLabel, formatStopLabel } from 'app/shared/util/entity-labels';
 
 import { createEntity, getEntity, reset, updateEntity } from './route-stop.reducer';
 
@@ -120,7 +121,7 @@ export const RouteStopUpdate = () => {
                 {routes
                   ? routes.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {formatRouteLabel(otherEntity)}
                       </option>
                     ))
                   : null}
@@ -130,7 +131,7 @@ export const RouteStopUpdate = () => {
                 {stops
                   ? stops.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {formatStopLabel(otherEntity)}
                       </option>
                     ))
                   : null}

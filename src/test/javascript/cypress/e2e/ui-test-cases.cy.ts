@@ -79,9 +79,7 @@ describe('UI test cases (UI_TEST_CASES.md)', () => {
     cy.contains('h4', 'Подбор транспортного средства')
       .closest('.container')
       .within(() => {
-        cy.get('input[type=number]')
-          .first()
-          .then($el => setNativeInputValue($el[0] as HTMLInputElement, String(routeId)));
+        cy.get('[data-cy=suggestionRouteId]').select(String(routeId));
         cy.get('input[type=date]').then($el => setNativeInputValue($el[0] as HTMLInputElement, tripDate));
         cy.get('input[type=time]').then($el => setNativeInputValue($el[0] as HTMLInputElement, departureTime));
       });

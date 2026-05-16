@@ -10,6 +10,8 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 
 import { eventTypeRu } from 'app/shared/util/enum-labels-ru';
 
+import { formatTripLabel, formatVehicleLabel } from 'app/shared/util/entity-labels';
+
 import { getEntity } from './event.reducer';
 
 export const EventDetail = () => {
@@ -44,9 +46,11 @@ export const EventDetail = () => {
           </dt>
           <dd>{eventEntity.description}</dd>
           <dt>Рейс</dt>
-          <dd>{eventEntity.trip ? eventEntity.trip.id : ''}</dd>
+          <dd>{eventEntity.trip ? <Link to={`/trip/${eventEntity.trip.id}`}>{formatTripLabel(eventEntity.trip)}</Link> : ''}</dd>
           <dt>Транспортное средство</dt>
-          <dd>{eventEntity.vehicle ? eventEntity.vehicle.id : ''}</dd>
+          <dd>
+            {eventEntity.vehicle ? <Link to={`/vehicle/${eventEntity.vehicle.id}`}>{formatVehicleLabel(eventEntity.vehicle)}</Link> : ''}
+          </dd>
         </dl>
         <Button as={Link as any} to="/event" replace variant="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Назад</span>

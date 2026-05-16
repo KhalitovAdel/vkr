@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useAppDispatch, useAppSelector } from 'app/config/store';
 
+import { formatRouteLabel, formatStopLabel } from 'app/shared/util/entity-labels';
+
 import { getEntity } from './route-stop.reducer';
 
 export const RouteStopDetail = () => {
@@ -36,9 +38,13 @@ export const RouteStopDetail = () => {
           </dt>
           <dd>{routeStopEntity.distanceFromPrev}</dd>
           <dt>Маршрут</dt>
-          <dd>{routeStopEntity.route ? routeStopEntity.route.id : ''}</dd>
+          <dd>
+            {routeStopEntity.route ? <Link to={`/route/${routeStopEntity.route.id}`}>{formatRouteLabel(routeStopEntity.route)}</Link> : ''}
+          </dd>
           <dt>Остановка</dt>
-          <dd>{routeStopEntity.stop ? routeStopEntity.stop.id : ''}</dd>
+          <dd>
+            {routeStopEntity.stop ? <Link to={`/stop/${routeStopEntity.stop.id}`}>{formatStopLabel(routeStopEntity.stop)}</Link> : ''}
+          </dd>
         </dl>
         <Button as={Link as any} to="/route-stop" replace variant="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Назад</span>

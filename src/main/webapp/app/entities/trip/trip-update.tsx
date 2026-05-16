@@ -11,6 +11,7 @@ import { getEntities as getRoutes } from 'app/entities/route/route.reducer';
 import { getEntities as getVehicles } from 'app/entities/vehicle/vehicle.reducer';
 import { getEntities as getWaybills } from 'app/entities/waybill/waybill.reducer';
 import { TripStatus } from 'app/shared/model/enumerations/trip-status.model';
+import { formatDriverLabel, formatRouteLabel, formatVehicleLabel, formatWaybillLabel } from 'app/shared/util/entity-labels';
 import { tripStatusRu } from 'app/shared/util/enum-labels-ru';
 
 import { createEntity, getEntity, reset, updateEntity } from './trip.reducer';
@@ -149,7 +150,7 @@ export const TripUpdate = () => {
                 {waybills
                   ? waybills.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {formatWaybillLabel(otherEntity)}
                       </option>
                     ))
                   : null}
@@ -159,7 +160,7 @@ export const TripUpdate = () => {
                 {vehicles
                   ? vehicles.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {formatVehicleLabel(otherEntity)}
                       </option>
                     ))
                   : null}
@@ -169,7 +170,7 @@ export const TripUpdate = () => {
                 {drivers
                   ? drivers.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {formatDriverLabel(otherEntity)}
                       </option>
                     ))
                   : null}
@@ -179,7 +180,7 @@ export const TripUpdate = () => {
                 {routes
                   ? routes.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {formatRouteLabel(otherEntity)}
                       </option>
                     ))
                   : null}

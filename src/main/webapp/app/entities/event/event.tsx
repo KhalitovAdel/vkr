@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { overrideSortStateWithQueryParams } from 'app/shared/util/entity-utils';
 import { ASC, DESC } from 'app/shared/util/pagination.constants';
 
+import { formatTripLabel, formatVehicleLabel } from 'app/shared/util/entity-labels';
 import { eventTypeRu } from 'app/shared/util/enum-labels-ru';
 
 import { getEntities } from './event.reducer';
@@ -120,8 +121,8 @@ export const Event = () => {
                   <td>{eventTypeRu(event.eventType)}</td>
                   <td>{event.eventTime ? <TextFormat type="date" value={event.eventTime} format={APP_DATE_FORMAT} /> : null}</td>
                   <td>{event.description}</td>
-                  <td>{event.trip ? <Link to={`/trip/${event.trip.id}`}>{event.trip.id}</Link> : ''}</td>
-                  <td>{event.vehicle ? <Link to={`/vehicle/${event.vehicle.id}`}>{event.vehicle.id}</Link> : ''}</td>
+                  <td>{event.trip ? <Link to={`/trip/${event.trip.id}`}>{formatTripLabel(event.trip)}</Link> : ''}</td>
+                  <td>{event.vehicle ? <Link to={`/vehicle/${event.vehicle.id}`}>{formatVehicleLabel(event.vehicle)}</Link> : ''}</td>
                   <td className="text-end">
                     <div className="btn-group flex-btn-group-container">
                       <Button as={Link as any} to={`/event/${event.id}`} variant="info" size="sm" data-cy="entityDetailsButton">
